@@ -9,6 +9,7 @@ class_name Player extends CharacterBody2D
 var current_mask: Mask
 
 var current_hp: int
+var dead : bool = false
 
 func _ready() -> void:
 	current_mask = DEFAULT_CONTROLS
@@ -27,10 +28,16 @@ func set_current_mask(new_mask : Mask):
 	current_hp = current_mask.player_stats.max_hp * hp_ratio
 
 func _physics_process(delta: float) -> void:
-	current_mask.player_controller.movement(self, delta)
-	set_aim()
-	current_mask.attack(self)
-	current_mask.ability(self)
+	if !dead:
+		current_mask.player_controller.movement(self, delta)
+		set_aim()
+		current_mask.attack(self)
+		current_mask.ability(self)
+	else: 
+		if is_on_floor(): #out of map death can be dealt with another object
+			die()
+		else:
+			velocity += get_gravity() * delta
 	move_and_slide()
 	
 func _process(delta: float) -> void:
@@ -53,5 +60,11 @@ func handle_damage(amount : int, knockback: Vector2):
 	else: 
 		velocity += knockback
 		current_hp -= amount
-		
+	if current_hp <= 0:
+		dead = true
 	#sfx for a successful block should play here
+
+
+func die():
+	process_mode = PROCESS_MODE_DISABLED
+	

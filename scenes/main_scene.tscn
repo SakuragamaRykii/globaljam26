@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvut0ballh7d0"]
+[gd_scene load_steps=5 format=3 uid="uid://dvut0ballh7d0"]
 
 [ext_resource type="Texture2D" uid="uid://cfy7acbjeje76" path="res://bar.png" id="1_3afny"]
+[ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_3k1xk"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="2_4d2h3"]
-[ext_resource type="PackedScene" uid="uid://bay86gclqwu4n" path="res://entities/player_base.tscn" id="3_vk4ge"]
 
-[node name="MainScene" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd3po"]
+size = Vector2(1600, 900)
+
+[node name="BattleScene" type="Node2D"]
+position = Vector2(0, -3)
+script = ExtResource("1_3k1xk")
+arena_start_pos = Vector2(300, 500)
+arena_end_pos = Vector2(800, 500)
 
 [node name="TempBackground" type="Sprite2D" parent="."]
 position = Vector2(644.876, 368)
@@ -14,18 +21,20 @@ texture = ExtResource("1_3afny")
 [node name="TempPlatform" parent="." instance=ExtResource("2_4d2h3")]
 position = Vector2(627, 529)
 
-[node name="PlayerBase" parent="." instance=ExtResource("3_vk4ge")]
-position = Vector2(224, 405)
-player_id = "p1"
-
 [node name="Label" type="Label" parent="."]
-offset_left = 1401.0
-offset_top = -581.0
-offset_right = 4983.0
-offset_bottom = 1272.0
+offset_left = 593.0
+offset_top = 72.0
+offset_right = 4175.0
+offset_bottom = 1925.0
 theme_override_font_sizes/font_size = 82
-text = "lemme commit one sec"
+text = "lmao"
 
-[node name="PlayerBase2" parent="." instance=ExtResource("3_vk4ge")]
-position = Vector2(656, 399)
-player_id = "p2"
+[node name="LegalArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea"]
+position = Vector2(638, 365)
+shape = SubResource("RectangleShape2D_pd3po")
+
+[connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
