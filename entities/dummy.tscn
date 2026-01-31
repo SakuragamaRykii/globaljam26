@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://llm3aivfm64l"]
+[gd_scene load_steps=3 format=3 uid="uid://llm3aivfm64l"]
 
 [ext_resource type="Texture2D" uid="uid://l50grw1n6l06" path="res://entities/stick man die.png" id="1_ewvry"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lueea"]
+size = Vector2(51, 84)
+
 [node name="Dummy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 7
 
 [node name="StickManDie" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
 texture = ExtResource("1_ewvry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5.5, 5)
+shape = SubResource("RectangleShape2D_lueea")

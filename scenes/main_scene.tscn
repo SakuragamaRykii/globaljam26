@@ -16,22 +16,21 @@ texture = ExtResource("1_3afny")
 position = Vector2(644, 524)
 
 [node name="PlayerBase" parent="." instance=ExtResource("3_vk4ge")]
-position = Vector2(224, 403)
+position = Vector2(224, 405)
+player_id = "p1"
 
 [node name="Dummy" parent="." instance=ExtResource("4_ymqrx")]
 position = Vector2(898, 411)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 418.0
-offset_top = 45.0
-offset_right = 1267.0
-offset_bottom = 378.0
+offset_left = 137.0
+offset_top = 72.0
+offset_right = 1153.0
+offset_bottom = 405.0
 theme_override_font_sizes/font_size = 32
-text = "starting off with the combat system
+text = "Committing now
+few things were changed around
 
-base controls and all
-
-and then ill start adding mask abilities and mask states
-
-(gonna commit here for now)
-"
+Player controls rely on the mask they currently have, 
+not the player object itself. This also means that the 
+masks hold the current stats of the player as well."
