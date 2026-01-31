@@ -10,10 +10,12 @@ var current_mask: Mask
 
 var current_hp: int
 var dead : bool = false
+signal death
 
 func _ready() -> void:
 	current_mask = DEFAULT_CONTROLS
 	current_hp = current_mask.player_stats.max_hp
+	dead = false
 
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
@@ -66,5 +68,10 @@ func handle_damage(amount : int, knockback: Vector2):
 
 
 func die():
+	print(player_id, " has died")
 	process_mode = PROCESS_MODE_DISABLED
-	
+	death.emit(self)
+
+func respawn():
+	process_mode = PROCESS_MODE_INHERIT
+	_ready()
