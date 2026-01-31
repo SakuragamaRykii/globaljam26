@@ -7,9 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elmjh"]
 size = Vector2(78, 68)
 
-[node name="DefaultControls" type="Area2D"]
-collision_layer = 0
-collision_mask = 5
+[node name="DefaultControls" type="Node2D"]
 script = ExtResource("1_etyq5")
 player_stats = ExtResource("2_nqd8r")
 
@@ -18,9 +16,18 @@ position = Vector2(120, 1.19209e-07)
 scale = Vector2(2.71875, 2.5625)
 texture = ExtResource("1_7yqgn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="AttackCD" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 36
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(118, 4)
 shape = SubResource("RectangleShape2D_elmjh")
 
-[node name="AttackCD" type="Timer" parent="."]
-wait_time = 0.5
+[node name="AttackDuration" type="Timer" parent="."]
+wait_time = 0.25
+
+[connection signal="timeout" from="AttackDuration" to="." method="_on_attack_duration_timeout"]

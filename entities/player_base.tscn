@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bay86gclqwu4n"]
+[gd_scene load_steps=7 format=3 uid="uid://bay86gclqwu4n"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
 [ext_resource type="Texture2D" uid="uid://dtvqcelcs5fhc" path="res://icon.svg" id="1_w2n65"]
 [ext_resource type="PackedScene" uid="uid://duihlgnn0s2gw" path="res://masks/default_controls.tscn" id="3_7ly6d"]
+[ext_resource type="Script" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql0r8"]
 size = Vector2(121, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rx7cs"]
+size = Vector2(58.5, 115)
 
 [node name="PlayerBase" type="CharacterBody2D"]
 collision_layer = 4
@@ -21,3 +25,27 @@ texture = ExtResource("1_w2n65")
 visible = false
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_ql0r8")
+
+[node name="BlockZone" type="StaticBody2D" parent="."]
+collision_layer = 32
+collision_mask = 0
+script = ExtResource("4_47vtf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone"]
+position = Vector2(87, 0)
+shape = SubResource("RectangleShape2D_rx7cs")
+
+[node name="MeleeBlockZone" type="Area2D" parent="BlockZone"]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone/MeleeBlockZone"]
+position = Vector2(87, 0)
+shape = SubResource("RectangleShape2D_rx7cs")
+
+[node name="BlockBar" type="ProgressBar" parent="."]
+offset_left = -83.0
+offset_top = -95.0
+offset_right = 85.0
+offset_bottom = -68.0
+max_value = 3.0

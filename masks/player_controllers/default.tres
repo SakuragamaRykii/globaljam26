@@ -8,3 +8,4 @@ speed = 300.0
 jump_velocity = -400.0
 max_hp = 100
 attack_damage = 12
+knockback_ratio = 1.0

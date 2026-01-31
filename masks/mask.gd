@@ -8,6 +8,7 @@ class_name Mask extends Node2D
 var player_controller: ControllerComponent
 var can_attack: bool = true
 
+
 func attack(source_player: Player): pass
 func ability(source_player: Player): pass
 

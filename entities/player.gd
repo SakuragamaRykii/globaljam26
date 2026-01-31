@@ -2,6 +2,7 @@ class_name Player extends CharacterBody2D
 
 @onready var hitbox := $Hitbox
 @onready var DEFAULT_CONTROLS : Mask = $DefaultControls
+@onready var block_zone := $BlockZone
 
 @export var player_id : String #need function to set this automatically for multiplayer
 
@@ -31,9 +32,26 @@ func _physics_process(delta: float) -> void:
 	current_mask.attack(self)
 	current_mask.ability(self)
 	move_and_slide()
+	
+func _process(delta: float) -> void:
+	$BlockBar.value = block_zone.blocking_stamina_count/3 + block_zone.block_charge
 
 func set_aim():
 	if !current_mask: return
 	var x_aim = Input.get_axis(player_id+"_left", player_id+"_right")
 	var y_aim = Input.get_axis(player_id+"_up", player_id+"_down")
 	current_mask.look_at(global_position + Vector2(x_aim, y_aim))
+	block_zone.look_at(global_position + Vector2(x_aim, y_aim))
+	
+func handle_damage(amount : int, knockback: Vector2):
+	if Input.is_action_pressed(player_id+"_block"):
+		var blocking = block_zone.is_blocking_melee()
+		if !blocking: 
+			velocity += knockback
+			current_hp -= amount
+		else: print("ATTACK BLOCKED")
+	else: 
+		velocity += knockback
+		current_hp -= amount
+		
+	#sfx for a successful block should play here
