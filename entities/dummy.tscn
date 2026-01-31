@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://llm3aivfm64l"]
 
-[ext_resource type="Texture2D" uid="uid://l50grw1n6l06" path="res://entities/stick man die.png" id="1_ewvry"]
+[ext_resource type="Texture2D" uid="uid://l50grw1n6l06" path="res://entities/sprites/stick man die.png" id="1_ewvry"]
 [ext_resource type="Script" path="res://entities/dummy.gd" id="1_rnbmy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lueea"]

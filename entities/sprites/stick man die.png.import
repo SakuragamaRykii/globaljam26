@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8votwbney4mw"
-path="res://.godot/imported/stick man eaten.png-5d0e2dd24ed09d5e06af576cbbcf29c6.ctex"
+uid="uid://l50grw1n6l06"
+path="res://.godot/imported/stick man die.png-1e8f492aa66490706e5364dddc113542.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/stick man eaten.png"
-dest_files=["res://.godot/imported/stick man eaten.png-5d0e2dd24ed09d5e06af576cbbcf29c6.ctex"]
+source_file="res://entities/sprites/stick man die.png"
+dest_files=["res://.godot/imported/stick man die.png-1e8f492aa66490706e5364dddc113542.ctex"]
 
 [params]
 

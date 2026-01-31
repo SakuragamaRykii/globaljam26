@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://duihlgnn0s2gw"]
 
-[ext_resource type="Texture2D" uid="uid://c8votwbney4mw" path="res://entities/stick man eaten.png" id="1_7yqgn"]
+[ext_resource type="Texture2D" uid="uid://c8votwbney4mw" path="res://entities/sprites/stick man eaten.png" id="1_7yqgn"]
 [ext_resource type="Script" path="res://masks/default_controls.gd" id="1_etyq5"]
 [ext_resource type="Resource" uid="uid://bfc8qgy43gwt1" path="res://masks/player_controllers/default.tres" id="2_nqd8r"]
 

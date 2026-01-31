@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di6cy1mp0ih0n"
-path="res://.godot/imported/stage_background.png-d2554995672ea6aac3e6afc508e61c27.ctex"
+uid="uid://c8votwbney4mw"
+path="res://.godot/imported/stick man eaten.png-feec9e46194a7177914e3f13fff2c890.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/stage_background.png"
-dest_files=["res://.godot/imported/stage_background.png-d2554995672ea6aac3e6afc508e61c27.ctex"]
+source_file="res://entities/sprites/stick man eaten.png"
+dest_files=["res://.godot/imported/stick man eaten.png-feec9e46194a7177914e3f13fff2c890.ctex"]
 
 [params]
 

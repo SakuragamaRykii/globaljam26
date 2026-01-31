@@ -67,7 +67,7 @@ func check_win():
 	Engine.time_scale = 0.1
 	await get_tree().create_timer(0.2).timeout
 	Engine.time_scale = 1.0
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(0.05).timeout
 	
 	reset()
 

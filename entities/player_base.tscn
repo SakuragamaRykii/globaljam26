@@ -1,29 +1,36 @@
-[gd_scene load_steps=7 format=3 uid="uid://bay86gclqwu4n"]
+[gd_scene load_steps=9 format=3 uid="uid://bay86gclqwu4n"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
-[ext_resource type="Texture2D" uid="uid://dtvqcelcs5fhc" path="res://icon.svg" id="1_w2n65"]
+[ext_resource type="Texture2D" uid="uid://dv3ogdb3g76bk" path="res://entities/sprites/gamejam/move/chara 1/pixil-frame-0.png" id="2_ms4oc"]
 [ext_resource type="PackedScene" uid="uid://duihlgnn0s2gw" path="res://masks/default_controls.tscn" id="3_7ly6d"]
 [ext_resource type="Script" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql0r8"]
-size = Vector2(121, 124)
+size = Vector2(57, 94)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rx7cs"]
-size = Vector2(58.5, 115)
+size = Vector2(43.25, 82.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qs8i"]
+bg_color = Color(0.199788, 0.266973, 0.387712, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h13fy"]
+bg_color = Color(0.471723, 0.761022, 0.95762, 1)
 
 [node name="PlayerBase" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_cwb64")
 
-[node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("1_w2n65")
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("2_ms4oc")
 
 [node name="DefaultControls" parent="." instance=ExtResource("3_7ly6d")]
+scale = Vector2(0.5, 0.5)
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -1)
+position = Vector2(0.5, -2)
 shape = SubResource("RectangleShape2D_ql0r8")
 
 [node name="BlockZone" type="StaticBody2D" parent="."]
@@ -32,20 +39,23 @@ collision_mask = 0
 script = ExtResource("4_47vtf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone"]
-position = Vector2(87, 0)
+position = Vector2(61, -1)
 shape = SubResource("RectangleShape2D_rx7cs")
 
 [node name="MeleeBlockZone" type="Area2D" parent="BlockZone"]
 collision_layer = 32
-collision_mask = 16
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone/MeleeBlockZone"]
-position = Vector2(87, 0)
+position = Vector2(61, -1)
 shape = SubResource("RectangleShape2D_rx7cs")
 
 [node name="BlockBar" type="ProgressBar" parent="."]
-offset_left = -83.0
-offset_top = -95.0
-offset_right = 85.0
-offset_bottom = -68.0
+offset_left = -44.0
+offset_top = -66.0
+offset_right = 43.0
+offset_bottom = -56.0
+theme_override_styles/background = SubResource("StyleBoxFlat_7qs8i")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h13fy")
 max_value = 3.0
+show_percentage = false

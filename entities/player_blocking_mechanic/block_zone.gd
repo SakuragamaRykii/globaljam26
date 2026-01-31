@@ -9,6 +9,9 @@ var block_charge : float = 0.
 
 #no blocking check for ranged becaues projectiles will get freed as soon as it touches
 # the static object
+func reset():
+	blocking_stamina_count = MAX_BLOCKING_COUNT
+	block_charge = 0.
 
 func is_blocking_melee() -> bool:
 	var attacks = $MeleeBlockZone.get_overlapping_bodies()
