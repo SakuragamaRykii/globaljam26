@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://llm3aivfm64l"]
+
+[ext_resource type="Texture2D" uid="uid://l50grw1n6l06" path="res://entities/stick man die.png" id="1_ewvry"]
+
+[node name="Dummy" type="CharacterBody2D"]
+
+[node name="StickManDie" type="Sprite2D" parent="."]
+scale = Vector2(3, 3)
+texture = ExtResource("1_ewvry")
