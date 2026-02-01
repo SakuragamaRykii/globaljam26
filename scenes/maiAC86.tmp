@@ -155,7 +155,7 @@ offset_right = 3538.0
 offset_bottom = 1706.0
 theme_override_fonts/font = ExtResource("4_wem6k")
 theme_override_font_sizes/font_size = 82
-text = "OOOOK FINALLY I THINK I CAN MOVE ON TO MASKS"
+text = "aight i think most is done i just gotta"
 
 [node name="SceneUI" type="CanvasLayer" parent="."]
 
