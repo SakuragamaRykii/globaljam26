@@ -1,21 +1,22 @@
 class_name Player extends CharacterBody2D
 
+var DEFAULT_CONTROLS : Mask 
 @onready var hitbox := $Hitbox
-@onready var DEFAULT_CONTROLS : Mask = $DefaultControls
 @onready var block_zone := $BlockZone
 
 @export var player_id : String #need function to set this automatically for multiplayer
-
+#HOLY FUCK I FELL ASLEEP
 var current_mask: Mask
 
 var current_hp: int
 var dead : bool = false
 signal death
 
-@onready var root = get_tree().root
+@onready var root = get_tree().root.get_child(1)
 
 func _ready() -> void:
-	current_mask = DEFAULT_CONTROLS
+	if (!DEFAULT_CONTROLS): DEFAULT_CONTROLS = $DefaultControls
+	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false
 
@@ -23,7 +24,7 @@ func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
 	var hp_ratio = 1
 	if current_mask:
-		hp_ratio = current_hp/current_mask.player_stats.max_hp
+		hp_ratio = float(current_hp)/float(current_mask.player_stats.max_hp)
 		remove_child(current_mask)
 		root.call_deferred("add_child", current_mask)
 	current_mask = new_mask
@@ -31,6 +32,7 @@ func set_current_mask(new_mask : Mask):
 	current_mask.reparent(self)
 	current_mask.position = Vector2.ZERO
 	current_hp = current_mask.player_stats.max_hp * hp_ratio
+	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
 	if !dead:
@@ -86,5 +88,4 @@ func respawn():
 	set_physics_process(true)
 	velocity = Vector2.ZERO
 	block_zone.reset()
-	set_current_mask(DEFAULT_CONTROLS)
 	_ready()

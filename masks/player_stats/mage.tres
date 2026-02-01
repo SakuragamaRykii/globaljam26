@@ -6,6 +6,6 @@
 script = ExtResource("1_qinlp")
 speed = 200.0
 jump_velocity = -600.0
-max_hp = 100
+max_hp = 120
 attack_damage = 18
 knockback_ratio = 0.05

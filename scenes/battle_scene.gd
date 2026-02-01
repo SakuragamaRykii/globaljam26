@@ -1,10 +1,18 @@
 extends Node2D
 
+const DROP_SPAWN_Y_POS = 500
+
 @export var arena_start_pos: Vector2
 @export var arena_end_pos : Vector2
 
+@export var drops_available: Array[PackedScene]
+
 @onready var anim : AnimationPlayer = $AnimationPlayer
 @onready var pause_menu: Control = $SceneUI/PauseMenu
+@onready var drop_spawn_cooldown: Timer = $DropSpawnCD
+
+var drop_spawn_index : int = 0
+var drop_spawn_times : Array[float] = [5., 3., 12]
 
 var alive_players : Array[Player] = []
 
@@ -14,6 +22,8 @@ var paused: bool = false
 signal unpause
 
 const ROUND_FINISH_TEXT : Array[String] = ["SPLENDID", "SENSATIONAL", "THIRST FOR BLOOD", "MASSACRE"]
+
+
 
 func _ready() -> void:
 	var player_scene = load("res://entities/player_base.tscn")
@@ -38,11 +48,18 @@ func _ready() -> void:
 		
 	for player in alive_players:
 		player.respawn()
+	
+	drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
 	
 func reset():
 	print("next round")
+	var children = get_children()
+	drop_spawn_index = 0
+	for drop in children:
+		if drop is MaskDrop:
+			drop.queue_free()
 	$SceneUI/RoundFinish.visible = false
 	$SceneUI/RoundFinish.scale = Vector2.ONE
 	alive_players = []
@@ -67,7 +84,7 @@ func reset():
 	for player in alive_players:
 		player.respawn()
 	round_finished = false
-	
+	drop_spawn_cooldown.start(drop_spawn_times[0])
 # add round start countdown
 	
 func eliminate(player: Player):
@@ -127,16 +144,35 @@ func resume_game():
 
 func quit_game():print("quit")
 
+
+func random_drop():
+	var random_x : float = randf_range(arena_start_pos.x, arena_end_pos.x)
+	var random_drop_index : int = randi_range(0, drops_available.size()-1)
+	
+	var instance = drops_available[random_drop_index].instantiate()
+	add_child(instance)
+	instance.global_position = Vector2(random_x, DROP_SPAWN_Y_POS)
+	
+
+
 func _on_legal_area_body_exited(body: Node2D) -> void:
 	if body is Player and !pause_menu.visible:
 		print("off map")
 		body.die()
 
-
-
 func _on_resume_pressed() -> void:
 	pause_menu.visible = false
 	resume_game()
+	
+	
+
 
 func _on_quit_pressed() -> void:
 	quit_game()
+
+
+func _on_drop_spawn_cd_timeout() -> void:
+	random_drop()
+	if drop_spawn_index < 2:
+		drop_spawn_index += 1
+	drop_spawn_cooldown.start(drop_spawn_times[drop_spawn_index])

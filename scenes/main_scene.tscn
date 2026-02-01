@@ -132,6 +132,7 @@ position = Vector2(0, -3)
 script = ExtResource("1_3k1xk")
 arena_start_pos = Vector2(300, 400)
 arena_end_pos = Vector2(800, 400)
+drops_available = Array[PackedScene]([ExtResource("6_f6gue")])
 
 [node name="TempBackground" type="Sprite2D" parent="."]
 position = Vector2(633, 359)
@@ -151,13 +152,15 @@ position = Vector2(638, 365)
 shape = SubResource("RectangleShape2D_pd3po")
 
 [node name="Label" type="Label" parent="."]
-offset_left = -44.0
-offset_top = -147.0
-offset_right = 1275.0
-offset_bottom = -8.0
+offset_left = -47.0
+offset_top = -308.0
+offset_right = 1272.0
+offset_bottom = -5.0
 theme_override_fonts/font = ExtResource("4_wem6k")
 theme_override_font_sizes/font_size = 82
-text = "OOOOK FINALLY I THINK I CAN MOVE ON TO MASKS"
+text = "holy fuck i was doomscolling this entire time
+
+i think i gotta go sleep bro i aint built for this"
 
 [node name="SceneUI" type="CanvasLayer" parent="."]
 
@@ -285,6 +288,10 @@ position = Vector2(-384, 453)
 [node name="MageDrop" parent="." instance=ExtResource("6_f6gue")]
 position = Vector2(1089, 500)
 
+[node name="DropSpawnCD" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="timeout" from="DropSpawnCD" to="." method="_on_drop_spawn_cd_timeout"]

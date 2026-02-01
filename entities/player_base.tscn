@@ -19,7 +19,7 @@ bg_color = Color(0.471723, 0.761022, 0.95762, 1)
 
 [node name="PlayerBase" type="CharacterBody2D" groups=["pausable"]]
 collision_layer = 4
-collision_mask = 7
+collision_mask = 6
 script = ExtResource("1_cwb64")
 
 [node name="Sprite" type="Sprite2D" parent="."]

@@ -14,7 +14,7 @@ func attack(source_player: Player):
 		bullet.velocity = Vector2(bullet.bullet_speed, 0).rotated(rotation)
 		bullet.damage = player_stats.attack_damage
 		bullet.knockback = player_stats.knockback_ratio
-		owner.add_child(bullet)
+		get_parent().get_parent().add_child(bullet)
 		can_attack = false
 		attack_cd.start()
 	
