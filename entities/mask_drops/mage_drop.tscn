@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://d6xidbfeihie"]
+
+[ext_resource type="Script" path="res://entities/mask_drops/mage_drop.gd" id="1_4tm1g"]
+[ext_resource type="Texture2D" uid="uid://cs0k1yabxoifm" path="res://entities/mask_drops/Enemy Type B1.png" id="1_qoh72"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dr6y"]
+size = Vector2(52, 125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqg2n"]
+size = Vector2(55, 10)
+
+[node name="MageDrop" type="Area2D"]
+collision_mask = 4
+script = ExtResource("1_4tm1g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, -113)
+texture = ExtResource("1_qoh72")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -65.5)
+shape = SubResource("RectangleShape2D_6dr6y")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(0.5, -5)
+shape = SubResource("RectangleShape2D_wqg2n")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

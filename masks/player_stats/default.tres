@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="PlayerStatsResource" load_steps=2 format=3 uid="uid://bfc8qgy43gwt1"]
 
-[ext_resource type="Script" path="res://masks/player_controllers/player_stats.gd" id="1_s1nlb"]
+[ext_resource type="Script" path="res://masks/player_stats/player_stats.gd" id="1_ac1o6"]
 
 [resource]
-script = ExtResource("1_s1nlb")
+script = ExtResource("1_ac1o6")
 speed = 300.0
 jump_velocity = -400.0
 max_hp = 100

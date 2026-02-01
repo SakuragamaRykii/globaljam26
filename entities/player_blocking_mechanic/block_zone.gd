@@ -21,6 +21,7 @@ func is_blocking_melee() -> bool:
 	return false
 
 func _process(delta: float) -> void:
+	
 	if blocking_stamina_count >= MAX_BLOCKING_COUNT: return
 	if block_charge <= 1:
 		block_charge += delta * BLOCK_CHARGE_SPEED

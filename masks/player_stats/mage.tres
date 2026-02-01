@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="PlayerStatsResource" load_steps=2 format=3 uid="uid://bg3dc0hvp6u7i"]
+
+[ext_resource type="Script" path="res://masks/player_stats/player_stats.gd" id="1_qinlp"]
+
+[resource]
+script = ExtResource("1_qinlp")
+speed = 200.0
+jump_velocity = -600.0
+max_hp = 100
+attack_damage = 18
+knockback_ratio = 0.05

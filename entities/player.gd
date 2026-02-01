@@ -12,6 +12,8 @@ var current_hp: int
 var dead : bool = false
 signal death
 
+@onready var root = get_tree().root
+
 func _ready() -> void:
 	current_mask = DEFAULT_CONTROLS
 	current_hp = current_mask.player_stats.max_hp
@@ -23,10 +25,11 @@ func set_current_mask(new_mask : Mask):
 	if current_mask:
 		hp_ratio = current_hp/current_mask.player_stats.max_hp
 		remove_child(current_mask)
-		owner.add_child(current_mask)
+		root.call_deferred("add_child", current_mask)
 	current_mask = new_mask
-	add_child(current_mask)
 	
+	current_mask.reparent(self)
+	current_mask.position = Vector2.ZERO
 	current_hp = current_mask.player_stats.max_hp * hp_ratio
 
 func _physics_process(delta: float) -> void:
@@ -45,6 +48,7 @@ func _physics_process(delta: float) -> void:
 	
 func _process(delta: float) -> void:
 	$BlockBar.value = block_zone.blocking_stamina_count + block_zone.block_charge
+	$BlockZone/CollisionShape2D.disabled = !Input.is_action_pressed(player_id+"_block")
 
 func set_aim():
 	if !current_mask: return
@@ -55,6 +59,7 @@ func set_aim():
 	
 func handle_damage(amount : int, knockback: Vector2):
 	if Input.is_action_pressed(player_id+"_block"):
+		
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
 			velocity += knockback
@@ -79,4 +84,5 @@ func respawn():
 	process_mode = PROCESS_MODE_INHERIT
 	velocity = Vector2.ZERO
 	block_zone.reset()
+	set_current_mask(DEFAULT_CONTROLS)
 	_ready()

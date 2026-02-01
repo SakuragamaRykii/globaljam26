@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjlyc75d18x4y"]
+
+[ext_resource type="Script" path="res://masks/mage/mage_mask.gd" id="1_8fq22"]
+[ext_resource type="PackedScene" uid="uid://beonpc82sfstm" path="res://masks/mage/mage_bullet.tscn" id="2_3mdrh"]
+[ext_resource type="Resource" uid="uid://bg3dc0hvp6u7i" path="res://masks/player_stats/mage.tres" id="3_lsll0"]
+[ext_resource type="Texture2D" uid="uid://c8votwbney4mw" path="res://entities/sprites/stick man eaten.png" id="4_6ym6d"]
+
+[node name="MageMask" type="Node2D"]
+script = ExtResource("1_8fq22")
+mage_bullet = ExtResource("2_3mdrh")
+player_stats = ExtResource("3_lsll0")
+
+[node name="ShootPos" type="Node2D" parent="."]
+position = Vector2(68, 0)
+
+[node name="StickManEaten" type="Sprite2D" parent="."]
+position = Vector2(60, -1)
+scale = Vector2(0.56, 0.56)
+texture = ExtResource("4_6ym6d")
+
+[node name="AttackCD" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="timeout" from="AttackCD" to="." method="_on_attack_cd_timeout"]
