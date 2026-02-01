@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b7v1ofk0v3gea"
+path="res://.godot/imported/All players ready.mp3-22ad64ad2684f39a27352d68c001f981.mp3str"
+
+[deps]
+
+source_file="res://game/Game Jam SFX Masquerade/All players ready.mp3"
+dest_files=["res://.godot/imported/All players ready.mp3-22ad64ad2684f39a27352d68c001f981.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

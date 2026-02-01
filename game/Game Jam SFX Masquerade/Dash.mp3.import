@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://8kug73dlermn"
+path="res://.godot/imported/Dash.mp3-c1f090e46489ba6c0e56bfffb77e7d6d.mp3str"
+
+[deps]
+
+source_file="res://game/Game Jam SFX Masquerade/Dash.mp3"
+dest_files=["res://.godot/imported/Dash.mp3-c1f090e46489ba6c0e56bfffb77e7d6d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cf5cq4fav4a3u"
+path="res://.godot/imported/Normal Death.mp3-dacd1e6bff20d0eab5cad5f3aa521e33.mp3str"
+
+[deps]
+
+source_file="res://game/Game Jam SFX Masquerade/Normal Death.mp3"
+dest_files=["res://.godot/imported/Normal Death.mp3-dacd1e6bff20d0eab5cad5f3aa521e33.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

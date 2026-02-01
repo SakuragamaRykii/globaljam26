@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dcskbykc03t8w"
+path="res://.godot/imported/Mask radiation aura.mp3-37c444715f9e44c2db300a036cdaf934.mp3str"
+
+[deps]
+
+source_file="res://game/Game Jam SFX Masquerade/Mask radiation aura.mp3"
+dest_files=["res://.godot/imported/Mask radiation aura.mp3-37c444715f9e44c2db300a036cdaf934.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

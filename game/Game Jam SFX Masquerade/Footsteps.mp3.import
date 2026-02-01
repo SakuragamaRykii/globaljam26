@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bje22jel1pwhe"
+path="res://.godot/imported/Footsteps.mp3-e8a5dd11c9e55cbab658dc920979d9f7.mp3str"
+
+[deps]
+
+source_file="res://game/Game Jam SFX Masquerade/Footsteps.mp3"
+dest_files=["res://.godot/imported/Footsteps.mp3-e8a5dd11c9e55cbab658dc920979d9f7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
