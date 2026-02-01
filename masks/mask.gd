@@ -9,6 +9,7 @@ class_name Mask extends Node2D
 
 var player_controller: ControllerComponent
 var can_attack: bool = true
+var aura_colour: String
 
 func attack(source_player: Player): pass
 func ability(source_player: Player): pass
@@ -19,6 +20,8 @@ func set_attack_state(state: bool): #if attacked, start cooldown timer.
 	else: attack_cd.start()
 	
 
+
 func flip_sprite(source_player: Player):
 	if source_player.velocity.x != 0:
 		sprite.flip_h = source_player.velocity.x > 0
+	

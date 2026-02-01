@@ -285,9 +285,6 @@ libraries = {
 [node name="MageMask" parent="." instance=ExtResource("7_msnn7")]
 position = Vector2(-384, 453)
 
-[node name="MageDrop" parent="." instance=ExtResource("6_f6gue")]
-position = Vector2(1089, 500)
-
 [node name="DropSpawnCD" type="Timer" parent="."]
 wait_time = 5.0
 

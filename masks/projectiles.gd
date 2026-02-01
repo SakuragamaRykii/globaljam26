@@ -21,6 +21,5 @@ func _physics_process(delta: float) -> void:
 			
 		destroy()
 
-
 func destroy():
 	queue_free()

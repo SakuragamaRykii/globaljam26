@@ -1,4 +1,4 @@
-extends Mask
+class_name MageMask extends Mask
 
 @export var mage_bullet: PackedScene
 @onready var shoot_position: Node2D = $Pivot/ShootPos
@@ -6,6 +6,7 @@ extends Mask
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_controller = DefaultController.new(player_stats.speed, player_stats.jump_velocity)
+	aura_colour = "5951C9"
 
 func attack(source_player: Player): 
 	if can_attack and Input.is_action_just_pressed(source_player.player_id + "_attack"):
@@ -14,6 +15,7 @@ func attack(source_player: Player):
 		bullet.velocity = Vector2(bullet.bullet_speed, 0).rotated(pivot.rotation)
 		bullet.damage = player_stats.attack_damage
 		bullet.knockback = player_stats.knockback_ratio
+		print(bullet.velocity)
 		get_parent().get_parent().add_child(bullet)
 		can_attack = false
 		attack_cd.start()

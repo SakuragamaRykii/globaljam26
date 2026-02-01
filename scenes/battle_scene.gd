@@ -23,7 +23,16 @@ signal unpause
 
 const ROUND_FINISH_TEXT : Array[String] = ["SPLENDID", "SENSATIONAL", "THIRST FOR BLOOD", "MASSACRE"]
 
-
+func check_mask_colour(mask) -> String:
+	var result = ""
+	match typeof(mask):
+		"MageMask":
+			result = "5951C9"
+		"StarMask":
+			result = "FAD634"
+		"TankMask":
+			result = "0A8059"
+	return result
 
 func _ready() -> void:
 	var player_scene = load("res://entities/player_base.tscn")
@@ -36,6 +45,8 @@ func _ready() -> void:
 		(Vector2((arena_end_pos.x-arena_start_pos.x) * (i/float(names_size)), 0))
 		player.death.connect(eliminate)
 		player.player_id = "p"+str(i+1)
+		player.avatar_name = GameManager.player_selected_avatars[i]
+		player.player_name = GameManager.player_names[i]
 		alive_players.append(player)
 		player.set_process(false)
 		player.set_physics_process(false)

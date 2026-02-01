@@ -3,8 +3,12 @@ class_name Player extends CharacterBody2D
 var DEFAULT_CONTROLS : Mask 
 @onready var hitbox := $Hitbox
 @onready var block_zone := $BlockZone
+@onready var aura : AnimatedSprite2D = $Aura
+@onready var avatar: Sprite2D = $Sprite
+@onready var anim: AnimationTree = $AnimationTree
 
 @export var player_id : String #need function to set this automatically for multiplayer
+var avatar_name: String
 #HOLY FUCK I FELL ASLEEP
 var current_mask: Mask
 
@@ -22,6 +26,7 @@ func _ready() -> void:
 
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
+	if typeof(new_mask) == typeof(current_mask): return
 	var hp_ratio = 1
 	if current_mask:
 		hp_ratio = float(current_hp)/float(current_mask.player_stats.max_hp)
@@ -32,6 +37,11 @@ func set_current_mask(new_mask : Mask):
 	current_mask.reparent(self)
 	current_mask.position = Vector2.ZERO
 	current_hp = current_mask.player_stats.max_hp * hp_ratio
+	
+	aura.visible = current_mask != DEFAULT_CONTROLS
+	if aura.visible:
+		aura.self_modulate = current_mask.aura_colour
+		
 	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
@@ -76,7 +86,6 @@ func handle_damage(amount : int, knockback: Vector2):
 		dead = true
 	#sfx for a successful block should play here
 
-
 func die():
 	print(player_id, " has died")
 	set_process(false)
@@ -88,4 +97,31 @@ func respawn():
 	set_physics_process(true)
 	velocity = Vector2.ZERO
 	block_zone.reset()
-	_ready()
+	set_current_mask(DEFAULT_CONTROLS)
+	current_hp = current_mask.player_stats.max_hp
+	dead = false
+
+
+''' ANIM FUNCTIONS'''
+const PLAYER_AVATAR_PATH : String = "entities/sprite_sheets/player_avatars/"
+func get_attack_down_sprite():
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/attack_down.png")
+	avatar.texture = texture
+func get_attack_side_sprite() :
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/attack_side.png")
+	avatar.texture = texture
+func get_attack_up_sprite() :
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/attack_up.png")
+	avatar.texture = texture
+func get_jump_sprite() :
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/jump.png")
+	avatar.texture = texture
+func get_death_sprite() :
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/death.png")
+	avatar.texture = texture
+func get_move_sprite() :
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/move.png")
+	avatar.texture = texture
+func get_idle_sprite():
+	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/idle.png")
+	avatar.texture = texture

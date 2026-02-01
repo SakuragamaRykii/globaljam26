@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://beonpc82sfstm"]
 
-[ext_resource type="Script" path="res://masks/mage/mage_bullet.gd" id="1_2wmuf"]
 [ext_resource type="Texture2D" uid="uid://dqjdnseyimhsh" path="res://masks/mage/enemy_bullet-Sheet.png" id="1_amog4"]
+[ext_resource type="Script" path="res://masks/projectiles.gd" id="1_rw5dg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gj7ro"]
 
 [node name="MageBullet" type="CharacterBody2D"]
 collision_layer = 16
 collision_mask = 46
-script = ExtResource("1_2wmuf")
+script = ExtResource("1_rw5dg")
 bullet_speed = 400.0
 
 [node name="EnemyBullet-sheet" type="Sprite2D" parent="."]

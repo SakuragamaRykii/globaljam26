@@ -16,6 +16,8 @@ func attack(source_player : Player):
 		attacking = true
 		attacking_source = source_player
 		source_player.velocity += Vector2(DASH_SPEED, 0).rotated(pivot.rotation)
+		source_player.anim["parameters/playback"].travel("AttackBlend")
+		source_player.anim["parameters/AttackBlend/blend_position"] = Vector2(1, 0).rotated(pivot.rotation)
 		attack_duration.start()
 # add knockback
 		set_attack_state(false)
