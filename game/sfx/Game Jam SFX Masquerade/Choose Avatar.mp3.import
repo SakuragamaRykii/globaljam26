@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c4ndo7ut3nrg"
+path="res://.godot/imported/Choose Avatar.mp3-982ccb3aec81676906be6d5c4d7c1b43.mp3str"
+
+[deps]
+
+source_file="res://game/sfx/Game Jam SFX Masquerade/Choose Avatar.mp3"
+dest_files=["res://.godot/imported/Choose Avatar.mp3-982ccb3aec81676906be6d5c4d7c1b43.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

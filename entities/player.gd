@@ -78,18 +78,21 @@ func handle_damage(amount : int, knockback: Vector2):
 	if Input.is_action_pressed(player_id+"_block"):
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
-			velocity += knockback
-			current_hp -= amount
+			take_damage(amount, knockback)
 			print("FAILED BLOCK")
 		else: print("ATTACK BLOCKED")
 	else: 
-		velocity += knockback
-		current_hp -= amount
+		take_damage(amount, knockback)
 		print("ATTACK NOT BLOCKED")
 	if current_hp <= 0:
-		velocity += knockback * 4 
+		$DeathSFX.play()
 		dead = true
 	#sfx for a successful block should play here
+func take_damage(amount : int, knockback: Vector2):
+	velocity += knockback
+	current_hp -= amount
+	$TakeDamageSFX.pitch_scale = randf_range(0.8, 1.2)
+	$TakeDamageSFX.play()
 
 func die():
 	print(player_id, " has died")

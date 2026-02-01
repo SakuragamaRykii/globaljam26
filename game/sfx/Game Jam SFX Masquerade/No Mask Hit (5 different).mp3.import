@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cews3cr6b2try"
+path="res://.godot/imported/No Mask Hit (5 different).mp3-3b3cee5a84b10cdbbca4a5b84711ab96.mp3str"
+
+[deps]
+
+source_file="res://game/sfx/Game Jam SFX Masquerade/No Mask Hit (5 different).mp3"
+dest_files=["res://.godot/imported/No Mask Hit (5 different).mp3-3b3cee5a84b10cdbbca4a5b84711ab96.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

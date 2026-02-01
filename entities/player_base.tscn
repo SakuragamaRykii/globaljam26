@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bay86gclqwu4n"]
+[gd_scene load_steps=51 format=3 uid="uid://bay86gclqwu4n"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
 [ext_resource type="Texture2D" uid="uid://ctu13gvvxfr64" path="res://entities/sprites/gamejam/fire/pixil-frame-0-Sheet.png" id="2_l8v56"]
@@ -6,6 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://c3pmnib50o2sg" path="res://entities/sprite_sheets/player_avatars/green/attack_side.png" id="3_vjn07"]
 [ext_resource type="Script" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
 [ext_resource type="FontFile" uid="uid://c07mq27o2yt7o" path="res://fonts/MedodicaRegular.otf" id="6_4no8d"]
+[ext_resource type="Texture2D" uid="uid://db7ngr6es45bi" path="res://entities/sprites/slice.png" id="6_kmqct"]
+[ext_resource type="AudioStream" uid="uid://gl6mfr0rbx6g" path="res://game/sfx/processed/block.mp3" id="6_ubg7k"]
+[ext_resource type="AudioStream" uid="uid://cf5cq4fav4a3u" path="res://game/sfx/Game Jam SFX Masquerade/Normal Death.mp3" id="7_felsg"]
+[ext_resource type="AudioStream" uid="uid://b7xvrkmrapofq" path="res://game/sfx/Game Jam SFX Masquerade/Death By falling.mp3" id="8_cnyst"]
+[ext_resource type="AudioStream" uid="uid://defba8hiksu6d" path="res://game/sfx/processed/melee_hit.mp3" id="10_6dinj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m61kc"]
 atlas = ExtResource("2_l8v56")
@@ -516,6 +521,12 @@ collision_layer = 32
 collision_mask = 0
 script = ExtResource("4_47vtf")
 
+[node name="Slice" type="Sprite2D" parent="BlockZone"]
+position = Vector2(61, 1.19209e-07)
+rotation = -3.14159
+scale = Vector2(1.39, 2.515)
+texture = ExtResource("6_kmqct")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone"]
 position = Vector2(61, -1)
 shape = SubResource("RectangleShape2D_rx7cs")
@@ -527,6 +538,10 @@ collision_mask = 20
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlockZone/MeleeBlockZone"]
 position = Vector2(61, -1)
 shape = SubResource("RectangleShape2D_rx7cs")
+
+[node name="Block" type="AudioStreamPlayer" parent="BlockZone"]
+stream = ExtResource("6_ubg7k")
+volume_db = -3.748
 
 [node name="BlockBar" type="ProgressBar" parent="."]
 offset_left = -44.0
@@ -559,3 +574,15 @@ theme_override_font_sizes/font_size = 16
 text = "Player"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="DeathSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_felsg")
+volume_db = -1.874
+pitch_scale = 0.75
+
+[node name="FallSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_cnyst")
+volume_db = -4.965
+
+[node name="TakeDamageSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_6dinj")

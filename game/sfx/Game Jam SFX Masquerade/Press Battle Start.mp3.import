@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://2vnqq7ppqe8b"
+path="res://.godot/imported/Press Battle Start.mp3-4d5a7233f5d6a7204b8b129ccab65c7a.mp3str"
+
+[deps]
+
+source_file="res://game/sfx/Game Jam SFX Masquerade/Press Battle Start.mp3"
+dest_files=["res://.godot/imported/Press Battle Start.mp3-4d5a7233f5d6a7204b8b129ccab65c7a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

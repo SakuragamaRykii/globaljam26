@@ -21,10 +21,21 @@ func attack(source_player: Player):
 		can_attack = false
 		attack_cd.start()
 	
-func ability(source_player: Player): pass
+func ability(source_player: Player): 
+	if Input.is_action_just_pressed(source_player.player_id+"_ability") and !ability_used:
+		$AudioStreamPlayer.play()
+		for player in get_parent().get_parent().get_children():
+			if !player is Player: continue
+			if player == source_player: continue
+			player.set_physics_process(false)
+		print("za warudo")
+		await get_tree().create_timer(1).timeout
+		for player in get_parent().get_parent().get_children():
+			if !player is Player: continue
+			if player == source_player: continue
+			player.set_physics_process(true)
+		ability_used = true
 
-#gonna cook some noods brb
-#CARBS HAVE BEEN LOADED
 
 func _on_attack_cd_timeout() -> void:
 	can_attack = true

@@ -21,7 +21,7 @@ var round_finished : bool = false
 var paused: bool = false
 signal unpause
 
-const ROUND_FINISH_TEXT : Array[String] = ["SPLENDID", "SENSATIONAL", "THIRST FOR BLOOD", "MASSACRE"]
+const ROUND_FINISH_TEXT : Array[String] = ["UNMATCHED", "THIRST FOR BLOOD", "MASSACRE"]
 
 func check_mask_colour(mask) -> String:
 	var result = ""
@@ -168,6 +168,7 @@ func random_drop():
 func _on_legal_area_body_exited(body: Node2D) -> void:
 	if body is Player and !pause_menu.visible:
 		print("off map")
+		body.get_node("FallSFX").play()
 		body.die()
 
 func _on_resume_pressed() -> void:

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c8gydh0kjds0t"
+path="res://.godot/imported/Blocked hit (3 different).mp3-0d93faf215e930dbde9e99844d9e5ba4.mp3str"
+
+[deps]
+
+source_file="res://game/sfx/Game Jam SFX Masquerade/Blocked hit (3 different).mp3"
+dest_files=["res://.godot/imported/Blocked hit (3 different).mp3-0d93faf215e930dbde9e99844d9e5ba4.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

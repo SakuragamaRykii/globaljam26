@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1rt5tbyhjlex"
+path="res://.godot/imported/Ability SFX.mp3-0cd80295b7326977a348d293250ef922.mp3str"
+
+[deps]
+
+source_file="res://game/sfx/Game Jam SFX Masquerade/Ability SFX.mp3"
+dest_files=["res://.godot/imported/Ability SFX.mp3-0cd80295b7326977a348d293250ef922.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
