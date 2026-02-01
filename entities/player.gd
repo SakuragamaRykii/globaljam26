@@ -87,15 +87,15 @@ func handle_damage(amount : int, knockback: Vector2):
 		current_hp -= amount
 		print("ATTACK NOT BLOCKED")
 	if current_hp <= 0:
+		velocity += knockback * 4 
 		dead = true
 	#sfx for a successful block should play here
 
 func die():
 	print(player_id, " has died")
-	set_process(false)
-	set_physics_process(false)
 	anim["parameters/playback"].travel("death")
 	death.emit(self)
+	
 
 func respawn():
 	set_process(true)
