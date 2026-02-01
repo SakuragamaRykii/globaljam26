@@ -10,6 +10,7 @@
 script = ExtResource("1_8fq22")
 mage_bullet = ExtResource("2_3mdrh")
 player_stats = ExtResource("3_lsll0")
+mask_type = "Mage"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)

@@ -35,12 +35,12 @@ func check_mask_colour(mask) -> String:
 	return result
 
 func _ready() -> void:
+	$BGM.play()
 	var player_scene = load("res://entities/player_base.tscn")
 	var names_size = GameManager.player_names.size()
 	
 	for i in range(names_size):
 		var player = player_scene.instantiate()
-		add_child(player)
 		player.global_position = arena_start_pos + \
 		(Vector2((arena_end_pos.x-arena_start_pos.x) * (i/float(names_size)), 0))
 		player.death.connect(eliminate)
@@ -48,10 +48,12 @@ func _ready() -> void:
 		player.avatar_name = GameManager.player_selected_avatars[i]
 		player.player_name = GameManager.player_names[i]
 		alive_players.append(player)
+		add_child(player)
 		player.set_process(false)
 		player.set_physics_process(false)
 		print(player.global_position)
 		print(player.player_id)
+		
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished

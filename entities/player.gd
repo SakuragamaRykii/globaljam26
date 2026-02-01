@@ -9,6 +9,7 @@ var DEFAULT_CONTROLS : Mask
 
 @export var player_id : String #need function to set this automatically for multiplayer
 var avatar_name: String
+var player_name: String = "PLACEHOLDER"
 #HOLY FUCK I FELL ASLEEP
 var current_mask: Mask
 
@@ -23,10 +24,13 @@ func _ready() -> void:
 	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false
+	$PlayerName.text = player_name
 
 func set_current_mask(new_mask : Mask):
+	
 	if new_mask == current_mask: return
-	if typeof(new_mask) == typeof(current_mask): return
+	if current_mask and new_mask.mask_type == current_mask.mask_type: return
+	
 	var hp_ratio = 1
 	if current_mask:
 		hp_ratio = float(current_hp)/float(current_mask.player_stats.max_hp)
@@ -90,6 +94,7 @@ func die():
 	print(player_id, " has died")
 	set_process(false)
 	set_physics_process(false)
+	anim["parameters/playback"].travel("death")
 	death.emit(self)
 
 func respawn():

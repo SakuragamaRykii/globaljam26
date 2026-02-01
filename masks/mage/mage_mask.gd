@@ -13,9 +13,10 @@ func attack(source_player: Player):
 		var bullet: Projectile = mage_bullet.instantiate()
 		bullet.global_position = shoot_position.global_position
 		bullet.velocity = Vector2(bullet.bullet_speed, 0).rotated(pivot.rotation)
+		source_player.velocity -= bullet.velocity/2
 		bullet.damage = player_stats.attack_damage
 		bullet.knockback = player_stats.knockback_ratio
-		print(bullet.velocity)
+		attack_anim(source_player)
 		get_parent().get_parent().add_child(bullet)
 		can_attack = false
 		attack_cd.start()

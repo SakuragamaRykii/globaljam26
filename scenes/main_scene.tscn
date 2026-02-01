@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dvut0ballh7d0"]
+[gd_scene load_steps=15 format=3 uid="uid://dvut0ballh7d0"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_3k1xk"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="2_4d2h3"]
@@ -7,6 +7,7 @@
 [ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_m1q7s"]
 [ext_resource type="PackedScene" uid="uid://d6xidbfeihie" path="res://entities/mask_drops/mage_drop.tscn" id="6_f6gue"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="7_msnn7"]
+[ext_resource type="AudioStream" uid="uid://cj04hkoovmo2o" path="res://game/Battle_Theme.mp3" id="8_hw2we"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pd3po"]
 size = Vector2(1600, 900)
@@ -287,6 +288,10 @@ position = Vector2(-384, 453)
 
 [node name="DropSpawnCD" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_hw2we")
+volume_db = -15.0
 
 [connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
