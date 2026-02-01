@@ -40,6 +40,7 @@ func _physics_process(delta: float) -> void:
 		set_aim()
 		current_mask.attack(self)
 		current_mask.ability(self)
+		current_mask.flip_sprite(self)
 		if velocity.x != 0: $Sprite.flip_h = velocity.x > 0
 	else: 
 		if is_on_floor(): #out of map death can be dealt with another object
@@ -56,12 +57,11 @@ func set_aim():
 	if !current_mask: return
 	var x_aim = Input.get_axis(player_id+"_left", player_id+"_right")
 	var y_aim = Input.get_axis(player_id+"_up", player_id+"_down")
-	current_mask.look_at(global_position + Vector2(x_aim, y_aim))
+	current_mask.pivot.look_at(global_position + Vector2(x_aim, y_aim))
 	block_zone.look_at(global_position + Vector2(x_aim, y_aim))
 	
 func handle_damage(amount : int, knockback: Vector2):
 	if Input.is_action_pressed(player_id+"_block"):
-		
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
 			velocity += knockback

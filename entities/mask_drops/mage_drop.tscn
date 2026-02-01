@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://d6xidbfeihie"]
 
 [ext_resource type="Script" path="res://entities/mask_drops/mage_drop.gd" id="1_4tm1g"]
-[ext_resource type="Texture2D" uid="uid://cs0k1yabxoifm" path="res://entities/mask_drops/Enemy Type B1.png" id="1_qoh72"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="2_p3n8d"]
+[ext_resource type="Texture2D" uid="uid://7m8q3nkv86fu" path="res://masks/assets/masks/as items/m_01.png" id="3_a8qq1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dr6y"]
 size = Vector2(52, 125)
@@ -16,8 +16,9 @@ script = ExtResource("1_4tm1g")
 mask_backup_scene = ExtResource("2_p3n8d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(2, -113)
-texture = ExtResource("1_qoh72")
+position = Vector2(0, -113)
+scale = Vector2(3, 3)
+texture = ExtResource("3_a8qq1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, -65.5)

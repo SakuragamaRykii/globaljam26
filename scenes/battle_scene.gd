@@ -122,9 +122,6 @@ func _process(delta: float) -> void:
 		if pause_menu.visible : pause_game()
 		else: resume_game()
 
-
-
-
 func pause_game():
 	paused = true
 	for pausable in get_children():

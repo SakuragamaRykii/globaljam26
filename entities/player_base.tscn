@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bay86gclqwu4n"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
-[ext_resource type="Texture2D" uid="uid://dv3ogdb3g76bk" path="res://entities/sprites/gamejam/move/chara 1/pixil-frame-0.png" id="2_ms4oc"]
+[ext_resource type="Texture2D" uid="uid://pbn76wgslh4i" path="res://entities/sprites/gamejam/blue/move/pixil-frame-0.png" id="2_5sbe5"]
 [ext_resource type="PackedScene" uid="uid://duihlgnn0s2gw" path="res://masks/default_controls.tscn" id="3_7ly6d"]
 [ext_resource type="Script" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
 
@@ -24,7 +24,7 @@ script = ExtResource("1_cwb64")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(3, 3)
-texture = ExtResource("2_ms4oc")
+texture = ExtResource("2_5sbe5")
 
 [node name="DefaultControls" parent="." instance=ExtResource("3_7ly6d")]
 scale = Vector2(0.5, 0.5)

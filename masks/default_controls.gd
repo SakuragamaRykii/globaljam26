@@ -1,7 +1,7 @@
 extends Mask
 
 const DASH_SPEED = 400
-@onready var hitbox := $Hitbox
+@onready var hitbox := $Pivot/Hitbox
 # Called when the node enters the scene tree for the first time.
 @onready var attack_duration: Timer = $AttackDuration
 
@@ -15,7 +15,7 @@ func attack(source_player : Player):
 	if Input.is_action_just_pressed(source_player.player_id+"_attack") and can_attack:
 		attacking = true
 		attacking_source = source_player
-		source_player.velocity += Vector2(DASH_SPEED, 0).rotated(rotation)
+		source_player.velocity += Vector2(DASH_SPEED, 0).rotated(pivot.rotation)
 		attack_duration.start()
 # add knockback
 		set_attack_state(false)
@@ -31,7 +31,7 @@ func check_hits(source_player : Player):
 			print("HIT : ", hit.player_id)
 			attacking = false
 			hit.handle_damage(player_stats.attack_damage, 
-			Vector2(DASH_SPEED, 0).rotated(rotation) * player_stats.knockback_ratio + source_player.velocity/4)
+			Vector2(DASH_SPEED, 0).rotated(pivot.rotation) * player_stats.knockback_ratio + source_player.velocity/4)
 
 #just went to sainsburys to get some SNACKIESSSS
 
