@@ -77,11 +77,13 @@ func handle_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(player_id, " has died")
-	process_mode = PROCESS_MODE_DISABLED
+	set_process(false)
+	set_physics_process(false)
 	death.emit(self)
 
 func respawn():
-	process_mode = PROCESS_MODE_INHERIT
+	set_process(true)
+	set_physics_process(true)
 	velocity = Vector2.ZERO
 	block_zone.reset()
 	set_current_mask(DEFAULT_CONTROLS)

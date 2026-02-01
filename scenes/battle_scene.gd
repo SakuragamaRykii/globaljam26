@@ -27,7 +27,8 @@ func _ready() -> void:
 		player.death.connect(eliminate)
 		player.player_id = "p"+str(i+1)
 		alive_players.append(player)
-		player.process_mode = Node.PROCESS_MODE_DISABLED
+		player.set_process(false)
+		player.set_physics_process(false)
 		print(player.global_position)
 		print(player.player_id)
 	anim.play("round_countdown")
@@ -55,7 +56,8 @@ func reset():
 		(Vector2((arena_end_pos.x-arena_start_pos.x) * ((names_size - i)/names_size), 0))
 		i += 1
 		child.player_id = "p"+str(i)
-		child.process_mode = Node.PROCESS_MODE_DISABLED
+		child.set_process(false)
+		child.set_physics_process(false)
 		
 	if paused: await unpause
 	anim.speed_scale = 1.0
@@ -110,14 +112,16 @@ func pause_game():
 	paused = true
 	for pausable in get_children():
 		if !pausable.is_in_group("pausable"): continue
-		pausable.process_mode = Node.PROCESS_MODE_DISABLED
+		pausable.set_process(false)
+		pausable.set_physics_process(false)
 		
 func resume_game():
 	paused = false
 	if !round_finished:
 		for pausable in get_children():
 			if !pausable.is_in_group("pausable"): continue
-			pausable.process_mode = Node.PROCESS_MODE_INHERIT
+			pausable.set_process(true)
+			pausable.set_physics_process(true)
 	unpause.emit()
 	
 
