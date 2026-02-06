@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://yngl5t6p7j7h"]
+
+[ext_resource type="Script" uid="uid://csn2b04b6hb32" path="res://scenes/avatar_select.gd" id="1_bon42"]
+[ext_resource type="Texture2D" uid="uid://byh0icwuo4jti" path="res://entities/sprites/background/NO LOGO.png" id="2_2u4bx"]
+[ext_resource type="Texture2D" uid="uid://c8rkxm3b80a2w" path="res://entities/sprites/gamejam/selection/left_arrow.png" id="2_bon42"]
+[ext_resource type="Texture2D" uid="uid://cvpflqgshwi2l" path="res://entities/sprites/gamejam/selection/right_arrow.png" id="3_kodev"]
+[ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="4_2u4bx"]
+[ext_resource type="AudioStream" uid="uid://ckguf1f6djr5r" path="res://game/Menu Theme.mp3" id="6_kodev"]
+[ext_resource type="Texture2D" uid="uid://ckpt1u8j4dre3" path="res://entities/sprites/gamejam/selection/back_arrow.png" id="7_0vpeg"]
+
+[sub_resource type="Theme" id="Theme_0vpeg"]
+
+[sub_resource type="Theme" id="Theme_ged77"]
+
+[node name="AvatarSelect" type="Control" unique_id=376013679]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bon42")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1997096816]
+position = Vector2(642, 361)
+scale = Vector2(1.2773438, 1.28125)
+texture = ExtResource("2_2u4bx")
+
+[node name="Player1" type="Control" parent="." unique_id=1725377797]
+anchors_preset = 0
+offset_left = 130.49998
+offset_top = 147.99997
+offset_right = 170.49998
+offset_bottom = 187.99997
+
+[node name="LeftArrow" type="TextureButton" parent="Player1" unique_id=92783278]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 3.7120001
+anchor_bottom = 3.7120001
+offset_left = -97.499985
+offset_top = 101.52002
+offset_right = -43.99997
+offset_bottom = 156.51999
+texture_normal = ExtResource("2_bon42")
+
+[node name="Portrait" type="TextureRect" parent="Player1" unique_id=64541214]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -28.499985
+offset_top = 138.00003
+offset_right = 248.50002
+offset_bottom = 415.00006
+expand_mode = 3
+
+[node name="RightArrow" type="TextureButton" parent="Player1" unique_id=1009971039]
+layout_mode = 0
+offset_left = 284.5
+offset_top = 252.00003
+offset_right = 347.5
+offset_bottom = 299.00003
+texture_normal = ExtResource("3_kodev")
+
+[node name="Player2" type="Control" parent="." unique_id=2049146262]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftArrow" type="TextureButton" parent="Player2" unique_id=1471989523]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 3.7120001
+anchor_bottom = 3.7120001
+offset_left = 836.0
+offset_top = 250.51999
+offset_right = 889.5
+offset_bottom = 305.52
+texture_normal = ExtResource("2_bon42")
+
+[node name="Portrait" type="TextureRect" parent="Player2" unique_id=1027847836]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 910.0
+offset_top = 292.0
+offset_right = 1179.0
+offset_bottom = 561.0
+expand_mode = 3
+
+[node name="RightArrow" type="TextureButton" parent="Player2" unique_id=1854213552]
+layout_mode = 0
+offset_left = 1209.0
+offset_top = 396.0
+offset_right = 1272.0
+offset_bottom = 443.0
+texture_normal = ExtResource("3_kodev")
+
+[node name="Button" type="Button" parent="." unique_id=875223348]
+layout_mode = 0
+offset_left = 551.0
+offset_top = 388.0
+offset_right = 774.0
+offset_bottom = 466.0
+theme = SubResource("Theme_0vpeg")
+theme_override_fonts/font = ExtResource("4_2u4bx")
+theme_override_font_sizes/font_size = 38
+text = "- READY -"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=395237720]
+stream = ExtResource("6_kodev")
+volume_db = 6.966
+autoplay = true
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=5811694]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 11.0
+offset_right = 71.0
+offset_bottom = 79.0
+theme = SubResource("Theme_ged77")
+texture_normal = ExtResource("7_0vpeg")
+
+[connection signal="pressed" from="Button" to="." method="_on_ready_pressed"]
+[connection signal="pressed" from="TextureButton" to="." method="_on_back_pressed"]

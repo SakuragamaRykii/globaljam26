@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckpt1u8j4dre3"
-path="res://.godot/imported/back_arrow.png-b625f251fea1ce90a9d7a717b65bc9be.ctex"
+uid="uid://dt0nxi2qx78wt"
+path="res://.godot/imported/EXIT.png-9d50d42c7512bba8aca6f7458c0cc8e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/sprites/gamejam/selection/back_arrow.png"
-dest_files=["res://.godot/imported/back_arrow.png-b625f251fea1ce90a9d7a717b65bc9be.ctex"]
+source_file="res://entities/sprites/BUTTONS/EXIT.png"
+dest_files=["res://.godot/imported/EXIT.png-9d50d42c7512bba8aca6f7458c0cc8e2.ctex"]
 
 [params]
 

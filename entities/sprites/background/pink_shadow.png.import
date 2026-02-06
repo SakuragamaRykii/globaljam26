@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckpt1u8j4dre3"
-path="res://.godot/imported/back_arrow.png-b625f251fea1ce90a9d7a717b65bc9be.ctex"
+uid="uid://xmh03wh4ohjs"
+path="res://.godot/imported/pink_shadow.png-14e79fe935bcc27ec2377eb0c40432d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/sprites/gamejam/selection/back_arrow.png"
-dest_files=["res://.godot/imported/back_arrow.png-b625f251fea1ce90a9d7a717b65bc9be.ctex"]
+source_file="res://entities/sprites/background/pink_shadow.png"
+dest_files=["res://.godot/imported/pink_shadow.png-14e79fe935bcc27ec2377eb0c40432d6.ctex"]
 
 [params]
 

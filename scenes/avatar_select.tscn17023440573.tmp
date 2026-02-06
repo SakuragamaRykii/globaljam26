@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://yngl5t6p7j7h"]
+
+[ext_resource type="Script" uid="uid://csn2b04b6hb32" path="res://scenes/avatar_select.gd" id="1_bon42"]
+[ext_resource type="Texture2D" uid="uid://bbkjeucxpkfop" path="res://entities/sprites/gamejam/selection/background.png" id="1_lye6m"]
+[ext_resource type="Texture2D" uid="uid://c8rkxm3b80a2w" path="res://entities/sprites/gamejam/selection/left_arrow.png" id="2_bon42"]
+[ext_resource type="Texture2D" uid="uid://cvpflqgshwi2l" path="res://entities/sprites/gamejam/selection/right_arrow.png" id="3_kodev"]
+[ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="4_2u4bx"]
+
+[sub_resource type="Theme" id="Theme_0vpeg"]
+
+[node name="AvatarSelect" type="Control" unique_id=376013679]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bon42")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1997096816]
+position = Vector2(642, 361)
+scale = Vector2(1.2773438, 1.28125)
+texture = ExtResource("1_lye6m")
+
+[node name="Player1" type="Control" parent="." unique_id=1725377797]
+anchors_preset = 0
+offset_left = 130.49998
+offset_top = 147.99997
+offset_right = 170.49998
+offset_bottom = 187.99997
+
+[node name="LeftArrow" type="TextureButton" parent="Player1" unique_id=92783278]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 3.7120001
+anchor_bottom = 3.7120001
+offset_left = -22.499985
+offset_top = 101.52002
+offset_right = 31.00003
+offset_bottom = 156.51999
+texture_normal = ExtResource("2_bon42")
+
+[node name="Portrait" type="TextureRect" parent="Player1" unique_id=64541214]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 42.500015
+offset_top = 232.00003
+offset_right = 82.500015
+offset_bottom = 272.00003
+
+[node name="RightArrow" type="TextureButton" parent="Player1" unique_id=1009971039]
+layout_mode = 0
+offset_left = 102.500015
+offset_top = 252.00003
+offset_right = 165.50002
+offset_bottom = 299.00003
+texture_normal = ExtResource("3_kodev")
+
+[node name="Player2" type="Control" parent="." unique_id=2049146262]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftArrow2" type="TextureButton" parent="Player2" unique_id=1471989523]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 3.7120001
+anchor_bottom = 3.7120001
+offset_left = 988.0
+offset_top = 251.51999
+offset_right = 1041.5
+offset_bottom = 306.52
+texture_normal = ExtResource("2_bon42")
+
+[node name="Portrait2" type="TextureRect" parent="Player2" unique_id=1027847836]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 1053.0
+offset_top = 382.0
+offset_right = 1093.0
+offset_bottom = 422.0
+
+[node name="RightArrow2" type="TextureButton" parent="Player2" unique_id=1854213552]
+layout_mode = 0
+offset_left = 1113.0
+offset_top = 402.0
+offset_right = 1176.0
+offset_bottom = 449.0
+texture_normal = ExtResource("3_kodev")
+
+[node name="Button" type="Button" parent="." unique_id=875223348]
+layout_mode = 0
+offset_left = 532.0
+offset_top = 391.0
+offset_right = 755.0
+offset_bottom = 469.0
+theme = SubResource("Theme_0vpeg")
+theme_override_fonts/font = ExtResource("4_2u4bx")
+theme_override_font_sizes/font_size = 38
+text = "- READY -"
