@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dfogjw74mrynv"]
+
+[ext_resource type="Script" uid="uid://b14b0n2ckk2yr" path="res://scenes/start_screen.gd" id="1_r2jwc"]
+[ext_resource type="Texture2D" uid="uid://byh0icwuo4jti" path="res://entities/sprites/background/NO LOGO.png" id="2_hm208"]
+[ext_resource type="Texture2D" uid="uid://cdwdllmhpori5" path="res://entities/sprites/background/LOGO.png" id="3_5pab1"]
+[ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="4_o30b1"]
+
+[sub_resource type="Theme" id="Theme_ka6nf"]
+
+[node name="StartScreen" type="Control" unique_id=291395951]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r2jwc")
+
+[node name="NoLogo" type="Sprite2D" parent="." unique_id=540422678]
+position = Vector2(639, 357)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_hm208")
+
+[node name="Logo" type="Sprite2D" parent="." unique_id=807069942]
+modulate = Color(0, 0, 0, 1)
+position = Vector2(639, 253)
+scale = Vector2(1.1948053, 1.1948051)
+texture = ExtResource("3_5pab1")
+
+[node name="Logo2" type="Sprite2D" parent="." unique_id=1633744093]
+position = Vector2(638, 279.00003)
+scale = Vector2(1.185065, 1.1850649)
+texture = ExtResource("3_5pab1")
+
+[node name="Button" type="Button" parent="." unique_id=1044657637]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 473.0
+offset_right = 854.2024
+offset_bottom = 538.0
+theme = SubResource("Theme_ka6nf")
+theme_override_fonts/font = ExtResource("4_o30b1")
+theme_override_font_sizes/font_size = 50
+text = "- START -"
+
+[node name="Button2" type="Button" parent="." unique_id=1747271856]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 562.0
+offset_right = 854.2024
+offset_bottom = 627.0
+theme = SubResource("Theme_ka6nf")
+theme_override_fonts/font = ExtResource("4_o30b1")
+theme_override_font_sizes/font_size = 50
+text = "- QUIT -"
+
+[connection signal="pressed" from="Button" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_quit_pressed"]

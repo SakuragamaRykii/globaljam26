@@ -179,7 +179,7 @@ func _on_resume_pressed() -> void:
 
 
 func _on_quit_pressed() -> void:
-	quit_game()
+	get_tree().quit()
 
 
 func _on_drop_spawn_cd_timeout() -> void:
