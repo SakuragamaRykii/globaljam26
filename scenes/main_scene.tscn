@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dvut0ballh7d0"]
+[gd_scene load_steps=14 format=3 uid="uid://dvut0ballh7d0"]
 
 [ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_3k1xk"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="2_4d2h3"]
 [ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="2_sl66h"]
-[ext_resource type="FontFile" uid="uid://rja8oy5px4o1" path="res://fonts/BEBASNEUE-REGULAR.TTF" id="4_wem6k"]
 [ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_m1q7s"]
 [ext_resource type="PackedScene" uid="uid://d6xidbfeihie" path="res://entities/mask_drops/mage_drop.tscn" id="6_f6gue"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="7_msnn7"]
@@ -151,17 +150,6 @@ collision_mask = 4
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea"]
 position = Vector2(638, 365)
 shape = SubResource("RectangleShape2D_pd3po")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -47.0
-offset_top = -308.0
-offset_right = 1272.0
-offset_bottom = -5.0
-theme_override_fonts/font = ExtResource("4_wem6k")
-theme_override_font_sizes/font_size = 82
-text = "holy fuck i was doomscolling this entire time
-
-i think i gotta go sleep bro i aint built for this"
 
 [node name="SceneUI" type="CanvasLayer" parent="."]
 
