@@ -1,9 +1,9 @@
 extends Control
 
 var characters = [
-	{ "id": "MageMask", "portrait": preload("res://entities/sprites/mage.png") },
-	{ "id": "StarMask", "portrait": preload("res://entities/sprites/star.png") },
-	{ "id": "TankMask", "portrait": preload("res://entities/sprites/tank.png") }
+	{ "id": "blue", "portrait": preload("res://entities/sprites/mage.png") },
+	{ "id": "red", "portrait": preload("res://entities/sprites/star.png") },
+	{ "id": "green", "portrait": preload("res://entities/sprites/tank.png") }
 ]
 
 var p1_index := 0
