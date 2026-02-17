@@ -12,7 +12,7 @@ func _ready() -> void:
 	player_controller = DefaultController.new(player_stats.speed, player_stats.jump_velocity)
 
 func attack(source_player : Player): 
-	if Input.is_action_just_pressed(source_player.player_id+"_attack") and can_attack:
+	if Input.is_action_just_pressed("p1_attack") and can_attack:
 		attacking = true
 		attacking_source = source_player
 		source_player.velocity += Vector2(DASH_SPEED, 0).rotated(pivot.rotation)
@@ -42,7 +42,7 @@ func check_hits(source_player : Player):
 
 		
 func ability(source_player : Player): 
-	if Input.is_action_just_pressed(source_player.player_id+"_ability"):
+	if Input.is_action_just_pressed("p1_ability"):
 		print("Ability is cast??")
 
 func _physics_process(delta: float) -> void:

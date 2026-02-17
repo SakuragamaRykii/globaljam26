@@ -19,6 +19,9 @@ signal death
 
 @onready var root = get_tree().root.get_child(1)
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready() -> void:
 	if (!DEFAULT_CONTROLS): DEFAULT_CONTROLS = $DefaultControls
 	set_current_mask(DEFAULT_CONTROLS)
@@ -49,6 +52,8 @@ func set_current_mask(new_mask : Mask):
 	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
+	if !is_multiplayer_authority(): return
+	
 	if !dead:
 		current_mask.player_controller.movement(self, delta)
 		set_aim()
@@ -65,17 +70,17 @@ func _physics_process(delta: float) -> void:
 	
 func _process(delta: float) -> void:
 	$BlockBar.value = block_zone.blocking_stamina_count + block_zone.block_charge
-	$BlockZone/CollisionShape2D.disabled = !Input.is_action_pressed(player_id+"_block")
+	$BlockZone/CollisionShape2D.disabled = !Input.is_action_pressed("p1_block")
 
 func set_aim():
 	if !current_mask: return
-	var x_aim = Input.get_axis(player_id+"_left", player_id+"_right")
-	var y_aim = Input.get_axis(player_id+"_up", player_id+"_down")
+	var x_aim = Input.get_axis("p1_left", "p1_right")
+	var y_aim = Input.get_axis("p1_up", "p1_down")
 	current_mask.pivot.look_at(global_position + Vector2(x_aim, y_aim))
 	block_zone.look_at(global_position + Vector2(x_aim, y_aim))
 	
 func handle_damage(amount : int, knockback: Vector2):
-	if Input.is_action_pressed(player_id+"_block"):
+	if Input.is_action_pressed("p1_block"):
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
 			take_damage(amount, knockback)
@@ -129,6 +134,8 @@ func get_death_sprite() :
 	avatar.texture = texture
 func get_move_sprite() :
 	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/move.png")
+	print(PLAYER_AVATAR_PATH+avatar_name+"/move.png")
+	print(name)
 	avatar.texture = texture
 func get_idle_sprite():
 	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/idle.png")

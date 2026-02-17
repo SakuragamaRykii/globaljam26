@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bay86gclqwu4n"]
+[gd_scene load_steps=52 format=3 uid="uid://bay86gclqwu4n"]
 
 [ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
 [ext_resource type="Texture2D" uid="uid://ctu13gvvxfr64" path="res://entities/sprites/gamejam/fire/pixil-frame-0-Sheet.png" id="2_l8v56"]
@@ -491,6 +491,11 @@ states/move/node = SubResource("AnimationNodeAnimation_pkc5w")
 states/move/position = Vector2(401, 183)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_60y4t"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_pd8xg"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_rlblm"), "move", "AttackBlend", SubResource("AnimationNodeStateMachineTransition_d851u"), "AttackBlend", "move", SubResource("AnimationNodeStateMachineTransition_8h463"), "move", "death", SubResource("AnimationNodeStateMachineTransition_1qw87"), "move", "jump", SubResource("AnimationNodeStateMachineTransition_we381"), "jump", "move", SubResource("AnimationNodeStateMachineTransition_qy3ft"), "death", "idle", SubResource("AnimationNodeStateMachineTransition_y32ct"), "jump", "death", SubResource("AnimationNodeStateMachineTransition_1jsw0"), "jump", "AttackBlend", SubResource("AnimationNodeStateMachineTransition_ji1up")]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_32p66"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="PlayerBase" type="CharacterBody2D" groups=["pausable"]]
 collision_layer = 4
 collision_mask = 6
@@ -586,3 +591,6 @@ volume_db = -4.965
 
 [node name="TakeDamageSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_6dinj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_32p66")

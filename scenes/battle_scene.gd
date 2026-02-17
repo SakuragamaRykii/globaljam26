@@ -39,20 +39,20 @@ func _ready() -> void:
 	var player_scene = load("res://entities/player_base.tscn")
 	var names_size = GameManager.player_names.size()
 	
-	for i in range(names_size):
-		var player = player_scene.instantiate()
-		player.global_position = arena_start_pos + \
-		(Vector2((arena_end_pos.x-arena_start_pos.x) * (i/float(names_size)), 0))
-		player.death.connect(eliminate)
-		player.player_id = "p"+str(i+1)
-		player.avatar_name = GameManager.player_selected_avatars[i]
-		player.player_name = GameManager.player_names[i]
-		alive_players.append(player)
-		add_child(player)
-		player.set_process(false)
-		player.set_physics_process(false)
-		print(player.global_position)
-		print(player.player_id)
+	#for i in range(names_size):
+		#var player = player_scene.instantiate()
+		#player.global_position = arena_start_pos + \
+		#(Vector2((arena_end_pos.x-arena_start_pos.x) * (i/float(names_size)), 0))
+		#player.death.connect(eliminate)
+		#player.player_id = "p"+str(i+1)
+		#player.avatar_name = GameManager.player_selected_avatars[i]
+		#player.player_name = GameManager.player_names[i]
+		#alive_players.append(player)
+		#add_child(player)
+		#player.set_process(false)
+		#player.set_physics_process(false)
+		#print(player.global_position)
+		#print(player.player_id)
 		
 	anim.play("round_countdown")
 	#chinese mistake

@@ -24,7 +24,7 @@ func is_blocking_melee() -> bool:
 	return false
 
 func _process(delta: float) -> void:
-	$Slice.visible = Input.is_action_pressed(player.player_id+"_block") and blocking_stamina_count
+	$Slice.visible = Input.is_action_pressed("p1_block") and blocking_stamina_count
 	if blocking_stamina_count >= MAX_BLOCKING_COUNT: return
 	if block_charge <= 1:
 		block_charge += delta * BLOCK_CHARGE_SPEED

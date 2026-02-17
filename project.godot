@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://game/game_manager.gd"
+HighLevelNetworkHandler="*res://sim_multiplayer/high_level_network_handler.gd"
 
 [display]
 
