@@ -50,6 +50,7 @@ func update_ui() -> void:
 	p2_portrait.texture = characters[p2_index].portrait
 
 func start_game() -> void:
+	
 	GameManager.player_selected_avatars = [
 		characters[p1_index].id,
 		characters[p2_index].id

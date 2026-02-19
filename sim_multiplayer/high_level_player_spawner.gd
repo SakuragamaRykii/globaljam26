@@ -14,8 +14,8 @@ func spawn_player(id: int) -> void:
 	player.name = str(id)
 	player.player_name = GameManager.player_names[GameManager.players_in_game]
 	player.avatar_name = GameManager.player_selected_avatars[GameManager.players_in_game]
-	print(player.avatar_name)
-	GameManager.players_in_game += 1
+	#print(player.avatar_name)
+	#GameManager.players_in_game += 1
 	
 	get_node(spawn_path).add_child(player)
 	print(player.get_parent().name)

@@ -27,6 +27,12 @@ func _ready() -> void:
 	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false
+	player_name = GameManager.player_names[GameManager.players_in_game]
+	avatar_name = GameManager.player_selected_avatars[GameManager.players_in_game]
+	GameManager.players_in_game += 1
+	var battle_scene = get_parent()
+	death.connect(battle_scene.eliminate)
+	battle_scene.alive_players.append(self)
 	$PlayerName.text = player_name
 
 func set_current_mask(new_mask : Mask):
@@ -134,8 +140,6 @@ func get_death_sprite() :
 	avatar.texture = texture
 func get_move_sprite() :
 	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/move.png")
-	print(PLAYER_AVATAR_PATH+avatar_name+"/move.png")
-	print(name)
 	avatar.texture = texture
 func get_idle_sprite():
 	var texture = load(PLAYER_AVATAR_PATH+avatar_name+"/idle.png")

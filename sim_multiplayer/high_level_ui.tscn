@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://uqyepln3v8s3"]
 
-[ext_resource type="Script" path="res://sim_multiplayer/high_level_ui.gd" id="1_by1qs"]
+[ext_resource type="Script" uid="uid://deo6qpmvy2ua" path="res://sim_multiplayer/high_level_ui.gd" id="1_by1qs"]
 
 [node name="HighLevelUI" type="Control"]
 layout_mode = 3
