@@ -1,10 +1,10 @@
 [gd_scene load_steps=52 format=3 uid="uid://bay86gclqwu4n"]
 
-[ext_resource type="Script" path="res://entities/player.gd" id="1_cwb64"]
+[ext_resource type="Script" uid="uid://lpp4s2nfeerq" path="res://entities/player.gd" id="1_cwb64"]
 [ext_resource type="Texture2D" uid="uid://ctu13gvvxfr64" path="res://entities/sprites/gamejam/fire/pixil-frame-0-Sheet.png" id="2_l8v56"]
 [ext_resource type="PackedScene" uid="uid://duihlgnn0s2gw" path="res://masks/default_controls.tscn" id="3_7ly6d"]
 [ext_resource type="Texture2D" uid="uid://c3pmnib50o2sg" path="res://entities/sprite_sheets/player_avatars/green/attack_side.png" id="3_vjn07"]
-[ext_resource type="Script" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
+[ext_resource type="Script" uid="uid://b7pbu28jco6cu" path="res://entities/player_blocking_mechanic/block_zone.gd" id="4_47vtf"]
 [ext_resource type="FontFile" uid="uid://c07mq27o2yt7o" path="res://fonts/MedodicaRegular.otf" id="6_4no8d"]
 [ext_resource type="Texture2D" uid="uid://db7ngr6es45bi" path="res://entities/sprites/slice.png" id="6_kmqct"]
 [ext_resource type="AudioStream" uid="uid://gl6mfr0rbx6g" path="res://game/sfx/processed/block.mp3" id="6_ubg7k"]
@@ -405,14 +405,14 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lepll"]
 _data = {
-"RESET": SubResource("Animation_8sre3"),
-"attack_down": SubResource("Animation_pf1pk"),
-"attack_side": SubResource("Animation_fambm"),
-"attack_up": SubResource("Animation_dbstj"),
-"death": SubResource("Animation_r31vn"),
-"idle": SubResource("Animation_lxfd3"),
-"jump": SubResource("Animation_gpjct"),
-"move": SubResource("Animation_hd4rl")
+&"RESET": SubResource("Animation_8sre3"),
+&"attack_down": SubResource("Animation_pf1pk"),
+&"attack_side": SubResource("Animation_fambm"),
+&"attack_up": SubResource("Animation_dbstj"),
+&"death": SubResource("Animation_r31vn"),
+&"idle": SubResource("Animation_lxfd3"),
+&"jump": SubResource("Animation_gpjct"),
+&"move": SubResource("Animation_hd4rl")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_85max"]
@@ -560,7 +560,7 @@ show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_lepll")
+&"": SubResource("AnimationLibrary_lepll")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

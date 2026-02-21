@@ -1,13 +1,10 @@
-[gd_scene format=3 uid="uid://csb5ckqd5yuxp"]
+[gd_scene load_steps=14 format=3 uid="uid://csb5ckqd5yuxp"]
 
-[ext_resource type="Script" uid="uid://noacug7i8jo6" path="res://scenes/battle_scene.gd" id="1_4jx1p"]
-[ext_resource type="PackedScene" uid="uid://d6xidbfeihie" path="res://entities/mask_drops/mage_drop.tscn" id="2_r35qt"]
+[ext_resource type="Script" uid="uid://bfc7nocdy7ku5" path="res://sim_multiplayer/demo_multi.gd" id="1_5c87v"]
 [ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="3_libvl"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="4_7k7ec"]
-[ext_resource type="PackedScene" uid="uid://uqyepln3v8s3" path="res://sim_multiplayer/high_level_ui.tscn" id="5_8pihq"]
 [ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_v3gxy"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="6_tbjad"]
-[ext_resource type="Script" uid="uid://v6sp8tb62p0b" path="res://sim_multiplayer/high_level_player_spawner.gd" id="7_1p3bk"]
 [ext_resource type="AudioStream" uid="uid://cj04hkoovmo2o" path="res://game/Battle_Theme.mp3" id="7_kq07x"]
 [ext_resource type="PackedScene" uid="uid://bay86gclqwu4n" path="res://entities/player_base.tscn" id="8_jcfix"]
 
@@ -130,39 +127,32 @@ _data = {
 &"round_finish": SubResource("Animation_25uo2")
 }
 
-[node name="BattleScene" type="Node2D" unique_id=1875162804]
+[node name="BattleScene" type="Node2D"]
 position = Vector2(0, -3)
-script = ExtResource("1_4jx1p")
-arena_start_pos = Vector2(300, 400)
-arena_end_pos = Vector2(800, 400)
-drops_available = Array[PackedScene]([ExtResource("2_r35qt")])
+script = ExtResource("1_5c87v")
+drops_available = Array[PackedScene]([ExtResource("6_tbjad")])
+player_scene = ExtResource("8_jcfix")
 
-[node name="TempBackground" type="Sprite2D" parent="." unique_id=1312973020]
+[node name="TempBackground" type="Sprite2D" parent="."]
 position = Vector2(633, 359)
 scale = Vector2(1.27, 1.27)
 texture = ExtResource("3_libvl")
 
-[node name="TempPlatform" parent="." unique_id=170660774 instance=ExtResource("4_7k7ec")]
+[node name="TempPlatform" parent="." instance=ExtResource("4_7k7ec")]
 position = Vector2(627, 529)
 
-[node name="LegalArea" type="Area2D" parent="." unique_id=1633032941]
+[node name="LegalArea" type="Area2D" parent="."]
 visible = false
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea" unique_id=356659829]
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea"]
 position = Vector2(638, 365)
 shape = SubResource("RectangleShape2D_pd3po")
 
-[node name="SceneUI" type="CanvasLayer" parent="." unique_id=837700387]
+[node name="SceneUI" type="CanvasLayer" parent="."]
 
-[node name="HighLevelUI" parent="SceneUI" unique_id=1308480900 instance=ExtResource("5_8pihq")]
-offset_left = 135.0
-offset_top = 77.0
-offset_right = 135.0
-offset_bottom = 77.0
-
-[node name="Countdown" type="Control" parent="SceneUI" unique_id=491694868]
+[node name="Countdown" type="Control" parent="SceneUI"]
 custom_minimum_size = Vector2(6.07, 0)
 layout_mode = 3
 anchor_left = 0.503
@@ -177,7 +167,7 @@ pivot_offset = Vector2(28, 72)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="CountdownLabel" type="Label" parent="SceneUI/Countdown" unique_id=1889365419]
+[node name="CountdownLabel" type="Label" parent="SceneUI/Countdown"]
 modulate = Color(0.842053, 0.766305, 0.780472, 1)
 layout_mode = 0
 anchor_left = 0.5
@@ -197,7 +187,7 @@ text = "3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PauseMenu" type="MarginContainer" parent="SceneUI" unique_id=1933655279]
+[node name="PauseMenu" type="MarginContainer" parent="SceneUI"]
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -205,16 +195,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="SceneUI/PauseMenu" unique_id=1856766089]
+[node name="TextureRect" type="TextureRect" parent="SceneUI/PauseMenu"]
 modulate = Color(0, 0, 0, 0.52549)
 layout_mode = 2
 texture = SubResource("CanvasTexture_qws5h")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SceneUI/PauseMenu" unique_id=1912018063]
+[node name="VBoxContainer" type="VBoxContainer" parent="SceneUI/PauseMenu"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="SceneUI/PauseMenu/VBoxContainer" unique_id=1221948975]
+[node name="Label" type="Label" parent="SceneUI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.888227, 0.869173, 1)
 theme_override_fonts/font = ExtResource("5_v3gxy")
@@ -222,7 +212,7 @@ theme_override_font_sizes/font_size = 96
 text = "Game Paused"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="SceneUI/PauseMenu/VBoxContainer" unique_id=1445815394]
+[node name="Resume" type="Button" parent="SceneUI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -231,7 +221,7 @@ theme_override_fonts/font = ExtResource("5_v3gxy")
 theme_override_font_sizes/font_size = 64
 text = "Resume"
 
-[node name="Quit" type="Button" parent="SceneUI/PauseMenu/VBoxContainer" unique_id=968434210]
+[node name="Quit" type="Button" parent="SceneUI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 0.888227, 0.869173, 1)
@@ -239,7 +229,7 @@ theme_override_fonts/font = ExtResource("5_v3gxy")
 theme_override_font_sizes/font_size = 64
 text = "Quit"
 
-[node name="RoundFinish" type="Control" parent="SceneUI" unique_id=788531973]
+[node name="RoundFinish" type="Control" parent="SceneUI"]
 visible = false
 layout_mode = 3
 anchors_preset = 8
@@ -256,7 +246,7 @@ grow_vertical = 2
 scale = Vector2(0.8, 0.8)
 pivot_offset = Vector2(19.9, 33.16)
 
-[node name="Label" type="Label" parent="SceneUI/RoundFinish" unique_id=1844466848]
+[node name="Label" type="Label" parent="SceneUI/RoundFinish"]
 modulate = Color(1, 1, 1, 0.623529)
 layout_mode = 1
 anchors_preset = 8
@@ -275,26 +265,50 @@ theme_override_font_sizes/font_size = 128
 text = "SPLENDID"
 horizontal_alignment = 1
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SceneUI" unique_id=1204591544]
+[node name="Host" type="Button" parent="SceneUI"]
+offset_left = 105.0
+offset_top = 42.0
+offset_right = 244.0
+offset_bottom = 119.0
+text = "HOST"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SceneUI"]
 _spawnable_scenes = PackedStringArray("uid://bay86gclqwu4n")
 spawn_path = NodePath("../..")
-script = ExtResource("7_1p3bk")
-network_player = ExtResource("8_jcfix")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2097196031]
-libraries/ = SubResource("AnimationLibrary_qxski")
+[node name="Join" type="Button" parent="SceneUI"]
+offset_left = 110.0
+offset_top = 143.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "JOIN"
 
-[node name="MageMask" parent="." unique_id=1978790355 instance=ExtResource("6_tbjad")]
+[node name="IDPrompt" type="LineEdit" parent="SceneUI"]
+offset_left = 124.0
+offset_top = 208.0
+offset_right = 192.5625
+offset_bottom = 239.0
+placeholder_text = "LID"
+
+[node name="MageMask" parent="." instance=ExtResource("6_tbjad")]
 position = Vector2(-384, 453)
 
-[node name="DropSpawnCD" type="Timer" parent="." unique_id=1654054169]
+[node name="DropSpawnCD" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1809466599]
+[node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_kq07x")
 volume_db = -80.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qxski")
+}
 
 [connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="SceneUI/Host" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="SceneUI/Join" to="." method="_on_join_pressed"]
+[connection signal="text_changed" from="SceneUI/IDPrompt" to="." method="_on_id_prompt_text_changed"]
 [connection signal="timeout" from="DropSpawnCD" to="." method="_on_drop_spawn_cd_timeout"]
