@@ -117,6 +117,7 @@ func check_win():
 	await get_tree().create_timer(0.05).timeout
 	
 	reset()
+
 	
 func round_finish():
 	if !alive_players: return

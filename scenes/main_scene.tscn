@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dvut0ballh7d0"]
 
-[ext_resource type="Script" path="res://scenes/battle_scene.gd" id="1_3k1xk"]
+[ext_resource type="Script" uid="uid://noacug7i8jo6" path="res://scenes/battle_scene.gd" id="1_3k1xk"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="2_4d2h3"]
 [ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="2_sl66h"]
 [ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_m1q7s"]
@@ -122,9 +122,9 @@ length = 0.5
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qxski"]
 _data = {
-"RESET": SubResource("Animation_xtygi"),
-"round_countdown": SubResource("Animation_52nfe"),
-"round_finish": SubResource("Animation_25uo2")
+&"RESET": SubResource("Animation_xtygi"),
+&"round_countdown": SubResource("Animation_52nfe"),
+&"round_finish": SubResource("Animation_25uo2")
 }
 
 [node name="BattleScene" type="Node2D"]
@@ -170,7 +170,7 @@ size_flags_vertical = 3
 
 [node name="CountdownLabel" type="Label" parent="SceneUI/Countdown"]
 modulate = Color(0.842053, 0.766305, 0.780472, 1)
-layout_mode = 2
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.556
 anchor_right = 0.5
@@ -268,7 +268,7 @@ horizontal_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_qxski")
+&"": SubResource("AnimationLibrary_qxski")
 }
 
 [node name="MageMask" parent="." instance=ExtResource("7_msnn7")]

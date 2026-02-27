@@ -36,7 +36,6 @@ func _ready() -> void:
 	$PlayerName.text = player_name
 
 func set_current_mask(new_mask : Mask):
-	
 	if new_mask == current_mask: return
 	if current_mask and new_mask.mask_type == current_mask.mask_type: return
 	
@@ -85,7 +84,10 @@ func set_aim():
 	current_mask.pivot.look_at(global_position + Vector2(x_aim, y_aim))
 	block_zone.look_at(global_position + Vector2(x_aim, y_aim))
 	
+@rpc("any_peer", "call_local", "reliable")
 func handle_damage(amount : int, knockback: Vector2):
+	if !is_multiplayer_authority(): return
+	
 	if Input.is_action_pressed("p1_block"):
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
@@ -102,6 +104,7 @@ func handle_damage(amount : int, knockback: Vector2):
 func take_damage(amount : int, knockback: Vector2):
 	velocity += knockback
 	current_hp -= amount
+	print("current hp is ", current_hp)
 	$TakeDamageSFX.pitch_scale = randf_range(0.8, 1.2)
 	$TakeDamageSFX.play()
 

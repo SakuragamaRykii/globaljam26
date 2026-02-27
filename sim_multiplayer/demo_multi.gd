@@ -213,12 +213,8 @@ func _on_drop_spawn_cd_timeout() -> void:
 func _on_button_pressed() -> void:
 	host_lobby()
 	
-	
-
-
 func _on_id_prompt_text_changed(new_text: String) -> void:
 	$SceneUI/Join.disabled = new_text.length() == 0
-
 
 func _on_join_pressed() -> void:
 	join_lobby($SceneUI/IDPrompt.text.to_int())

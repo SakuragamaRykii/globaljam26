@@ -30,9 +30,10 @@ func check_hits(source_player : Player):
 		if hit is Player and !hit == source_player:
 			print("HIT : ", hit.player_id)
 			attacking = false
-			hit.handle_damage(player_stats.attack_damage, 
-			Vector2(DASH_SPEED, 0).rotated(pivot.rotation) * player_stats.knockback_ratio + source_player.velocity/4)
-
+			var knockback_dir = (Vector2(DASH_SPEED, 0).rotated(pivot.rotation) 
+			* player_stats.knockback_ratio) + source_player.velocity/4
+			
+			hit.rpc("handle_damage", player_stats.attack_damage, knockback_dir)
 #just went to sainsburys to get some SNACKIESSSS
 
 #bourbons are S tier not many can compete
