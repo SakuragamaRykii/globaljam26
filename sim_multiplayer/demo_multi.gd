@@ -54,8 +54,8 @@ func _ready() -> void:
 	Steam.lobby_created.connect(on_lobby_created)
 	Steam.lobby_joined.connect(on_lobby_joined)
 	
-	var names_size = GameManager.player_names.size()
-		
+	#var names_size = GameManager.player_names.size()
+	await Steam.lobby_created
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
@@ -70,7 +70,7 @@ func _ready() -> void:
 func reset():
 	print("next round")
 
-	
+@rpc("any_peer", "call_local", "reliable")
 func eliminate(player: Player):
 	if round_finished: return
 	print("called eliminate")
@@ -91,7 +91,9 @@ func check_win():
 	
 func round_finish():
 	if !alive_players: return
-	#var player = alive_players[0]
+	var player = alive_players[0]
+	var id_num = int(player.player_id[1]) - 1
+	$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
 	$SceneUI/RoundFinish/Label.text = ROUND_FINISH_TEXT[randi_range(0, ROUND_FINISH_TEXT.size()-1)]
 	$SceneUI/RoundFinish.visible = true
 	var tw = create_tween()
@@ -139,7 +141,7 @@ func random_drop():
 	add_child(instance)
 	instance.global_position = Vector2(random_x, DROP_SPAWN_Y_POS)
 	
-
+	
 """----------------STEAM SHIT------------------"""
 
 func host_lobby():
@@ -183,6 +185,7 @@ func on_lobby_joined(lid: int, perms: int, locked : bool, response: int):
 func _add_player(id : int = 1):
 	var player = player_scene.instantiate()
 	player.name = str(id)
+	player.death.connect(eliminate.rpc)
 	players_in_lobby += 1
 	call_deferred("add_child", player)
 

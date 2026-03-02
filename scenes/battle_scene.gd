@@ -36,23 +36,6 @@ func check_mask_colour(mask) -> String:
 
 func _ready() -> void:
 	$BGM.play()
-	var player_scene = load("res://entities/player_base.tscn")
-	var names_size = GameManager.player_names.size()
-	
-	#for i in range(names_size):
-		#var player = player_scene.instantiate()
-		#player.global_position = arena_start_pos + \
-		#(Vector2((arena_end_pos.x-arena_start_pos.x) * (i/float(names_size)), 0))
-		#player.death.connect(eliminate)
-		#player.player_id = "p"+str(i+1)
-		#player.avatar_name = GameManager.player_selected_avatars[i]
-		#player.player_name = GameManager.player_names[i]
-		#alive_players.append(player)
-		#add_child(player)
-		#player.set_process(false)
-		#player.set_physics_process(false)
-		#print(player.global_position)
-		#print(player.player_id)
 		
 	anim.play("round_countdown")
 	#chinese mistake
@@ -68,6 +51,7 @@ func _ready() -> void:
 	
 func reset():
 	print("next round")
+	drop_spawn_cooldown.stop()
 	var children = get_children()
 	drop_spawn_index = 0
 	for drop in children:
@@ -122,8 +106,8 @@ func check_win():
 func round_finish():
 	if !alive_players: return
 	var player = alive_players[0]
-	#var id_num = int(player.player_id[1]) - 1
-	#$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
+	var id_num = int(player.player_id[1]) - 1
+	$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
 	$SceneUI/RoundFinish/Label.text = ROUND_FINISH_TEXT[randi_range(0, ROUND_FINISH_TEXT.size()-1)]
 	$SceneUI/RoundFinish.visible = true
 	var tw = create_tween()
@@ -167,7 +151,7 @@ func random_drop():
 
 
 func _on_legal_area_body_exited(body: Node2D) -> void:
-	if body is Player and !pause_menu.visible:
+	if body is Player:
 		print("off map")
 		body.get_node("FallSFX").play()
 		body.die()
@@ -176,9 +160,6 @@ func _on_resume_pressed() -> void:
 	pause_menu.visible = false
 	resume_game()
 	
-	
-
-
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
