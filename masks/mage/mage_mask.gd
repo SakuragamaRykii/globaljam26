@@ -9,8 +9,10 @@ func _ready() -> void:
 	aura_colour = "5951C9"
 
 @rpc("any_peer", "call_local", "reliable")
-func attack(source_player: Player): 
+func attack(): 
 	if can_attack and Input.is_action_just_pressed("p1_attack"):
+		var source_player = get_parent()
+		if source_player is not Player: return
 		var bullet: Projectile = mage_bullet.instantiate()
 		bullet.global_position = shoot_position.global_position
 		bullet.velocity = Vector2(bullet.bullet_speed, 0).rotated(pivot.rotation)
@@ -23,8 +25,11 @@ func attack(source_player: Player):
 		attack_cd.start()
 
 @rpc("any_peer", "call_local", "reliable")
-func ability(source_player: Player): 
+func ability(): 
 	if Input.is_action_just_pressed("p1_ability") and !ability_used:
+		var source_player = get_parent()
+		if source_player is not Player: return
+	
 		$AudioStreamPlayer.play()
 		for player in get_parent().get_parent().get_children():
 			if !player is Player: continue

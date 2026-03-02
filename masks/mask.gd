@@ -15,9 +15,9 @@ var aura_colour: String
 var ability_used: bool = false
 
 @rpc("any_peer", "call_local", "reliable")
-func attack(source_player: Player): pass
+func attack(): pass
 @rpc("any_peer", "call_local", "reliable")
-func ability(source_player: Player): pass
+func ability(): pass
 
 func set_attack_state(state: bool): #if attacked, start cooldown timer. 
 	can_attack = state

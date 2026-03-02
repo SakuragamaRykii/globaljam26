@@ -1,0 +1,322 @@
+[gd_scene load_steps=15 format=3 uid="uid://csb5ckqd5yuxp"]
+
+[ext_resource type="Script" uid="uid://bfc7nocdy7ku5" path="res://sim_multiplayer/demo_multi.gd" id="1_5c87v"]
+[ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="3_libvl"]
+[ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="4_7k7ec"]
+[ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_v3gxy"]
+[ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="6_tbjad"]
+[ext_resource type="AudioStream" uid="uid://cj04hkoovmo2o" path="res://game/Battle_Theme.mp3" id="7_kq07x"]
+[ext_resource type="PackedScene" uid="uid://bay86gclqwu4n" path="res://entities/player_base.tscn" id="8_jcfix"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pd3po"]
+size = Vector2(1600, 900)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_qws5h"]
+
+[sub_resource type="Animation" id="Animation_xtygi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneUI/Countdown/CountdownLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["3"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SceneUI/Countdown:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SceneUI/Countdown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SceneUI/Countdown/CountdownLabel:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_52nfe"]
+resource_name = "round_countdown"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SceneUI/Countdown/CountdownLabel:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["3", "2", "1", "DANCE"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SceneUI/Countdown:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.3, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(5, 5), Vector2(1, 1), Vector2(5, 5), Vector2(1, 1), Vector2(5, 5), Vector2(1, 1), Vector2(5, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SceneUI/Countdown:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.3, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SceneUI/Countdown/CountdownLabel:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 0.8, 1, 1.3, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_25uo2"]
+resource_name = "round_finish"
+length = 0.5
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qxski"]
+_data = {
+&"RESET": SubResource("Animation_xtygi"),
+&"round_countdown": SubResource("Animation_52nfe"),
+&"round_finish": SubResource("Animation_25uo2")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x4eii"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="BattleScene" type="Node2D"]
+position = Vector2(0, -3)
+script = ExtResource("1_5c87v")
+drops_available = Array[PackedScene]([ExtResource("6_tbjad")])
+player_scene = ExtResource("8_jcfix")
+
+[node name="TempBackground" type="Sprite2D" parent="."]
+position = Vector2(633, 359)
+scale = Vector2(1.27, 1.27)
+texture = ExtResource("3_libvl")
+
+[node name="TempPlatform" parent="." instance=ExtResource("4_7k7ec")]
+position = Vector2(627, 529)
+
+[node name="LegalArea" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea"]
+position = Vector2(638, 365)
+shape = SubResource("RectangleShape2D_pd3po")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bay86gclqwu4n")
+spawn_path = NodePath("..")
+
+[node name="SceneUI" type="CanvasLayer" parent="."]
+
+[node name="Countdown" type="Control" parent="SceneUI"]
+custom_minimum_size = Vector2(6.07, 0)
+layout_mode = 3
+anchor_left = 0.503
+anchor_top = 0.344
+anchor_right = 0.503
+anchor_bottom = 0.344
+offset_left = -31.84
+offset_top = -90.703
+offset_right = 24.16
+offset_bottom = 53.297
+pivot_offset = Vector2(28, 72)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CountdownLabel" type="Label" parent="SceneUI/Countdown"]
+modulate = Color(0.842053, 0.766305, 0.780472, 1)
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.556
+anchor_right = 0.5
+anchor_bottom = 0.556
+offset_left = -28.0
+offset_top = -80.064
+offset_right = 28.0
+offset_bottom = 63.936
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_v3gxy")
+theme_override_font_sizes/font_size = 128
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseMenu" type="MarginContainer" parent="SceneUI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SceneUI/PauseMenu"]
+modulate = Color(0, 0, 0, 0.52549)
+layout_mode = 2
+texture = SubResource("CanvasTexture_qws5h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SceneUI/PauseMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="SceneUI/PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.888227, 0.869173, 1)
+theme_override_fonts/font = ExtResource("5_v3gxy")
+theme_override_font_sizes/font_size = 96
+text = "Game Paused"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="SceneUI/PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.888227, 0.869173, 1)
+theme_override_fonts/font = ExtResource("5_v3gxy")
+theme_override_font_sizes/font_size = 64
+text = "Resume"
+
+[node name="Quit" type="Button" parent="SceneUI/PauseMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.888227, 0.869173, 1)
+theme_override_fonts/font = ExtResource("5_v3gxy")
+theme_override_font_sizes/font_size = 64
+text = "Quit"
+
+[node name="RoundFinish" type="Control" parent="SceneUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -153.475
+offset_right = 20.0
+offset_bottom = -121.715
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(19.9, 33.16)
+
+[node name="Label" type="Label" parent="SceneUI/RoundFinish"]
+modulate = Color(1, 1, 1, 0.623529)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.0
+offset_top = -72.0
+offset_right = 196.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_v3gxy")
+theme_override_font_sizes/font_size = 128
+text = "SPLENDID"
+horizontal_alignment = 1
+
+[node name="Host" type="Button" parent="SceneUI"]
+offset_left = 105.0
+offset_top = 42.0
+offset_right = 244.0
+offset_bottom = 119.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="SceneUI"]
+offset_left = 110.0
+offset_top = 143.0
+offset_right = 221.0
+offset_bottom = 214.0
+text = "JOIN"
+
+[node name="IDPrompt" type="LineEdit" parent="SceneUI"]
+offset_left = 124.0
+offset_top = 208.0
+offset_right = 192.5625
+offset_bottom = 239.0
+placeholder_text = "LID"
+
+[node name="MageMask" parent="." instance=ExtResource("6_tbjad")]
+position = Vector2(-384, 453)
+
+[node name="DropSpawnCD" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_kq07x")
+volume_db = -80.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qxski")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x4eii")
+
+[connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
+[connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="SceneUI/Host" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="SceneUI/Join" to="." method="_on_join_pressed"]
+[connection signal="text_changed" from="SceneUI/IDPrompt" to="." method="_on_id_prompt_text_changed"]
+[connection signal="timeout" from="DropSpawnCD" to="." method="_on_drop_spawn_cd_timeout"]

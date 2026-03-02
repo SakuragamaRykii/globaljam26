@@ -38,7 +38,6 @@ func _ready() -> void:
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
 	if current_mask and new_mask.mask_type == current_mask.mask_type: return
-
 	var hp_ratio = 1
 	if current_mask:
 		hp_ratio = float(current_hp)/float(current_mask.player_stats.max_hp)
@@ -57,12 +56,13 @@ func set_current_mask(new_mask : Mask):
 	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
+	manage_movement_anims()
 	if !is_multiplayer_authority(): return
 	if !dead:
 		current_mask.player_controller.movement(self, delta)
 		set_aim()
-		current_mask.attack.rpc(self)
-		current_mask.ability.rpc(self)
+		current_mask.attack.rpc()
+		current_mask.ability.rpc()
 		current_mask.flip_sprite(self)
 		if velocity.x != 0: $Sprite.flip_h = velocity.x > 0
 	else: 
@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 			die()
 		else:
 			velocity += get_gravity() * delta
-	manage_movement_anims()
+	
 	move_and_slide()
 	
 func manage_movement_anims():
