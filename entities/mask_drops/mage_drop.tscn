@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d6xidbfeihie"]
 
-[ext_resource type="Script" path="res://entities/mask_drops/mask_drop.gd" id="1_s0mhp"]
+[ext_resource type="Script" uid="uid://bw7p8mgytrsbk" path="res://entities/mask_drops/mask_drop.gd" id="1_s0mhp"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="2_p3n8d"]
 [ext_resource type="Texture2D" uid="uid://7m8q3nkv86fu" path="res://masks/assets/masks/as items/m_01.png" id="3_a8qq1"]
 [ext_resource type="Texture2D" uid="uid://ctu13gvvxfr64" path="res://entities/sprites/gamejam/fire/pixil-frame-0-Sheet.png" id="3_a34gi"]
@@ -9,7 +9,7 @@
 size = Vector2(52, 125)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wqg2n"]
-size = Vector2(55, 10)
+size = Vector2(41, 10)
 
 [sub_resource type="Animation" id="Animation_sxifw"]
 length = 0.001
@@ -117,8 +117,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nl4wr"]
 _data = {
-"RESET": SubResource("Animation_sxifw"),
-"spawn": SubResource("Animation_fcnhn")
+&"RESET": SubResource("Animation_sxifw"),
+&"spawn": SubResource("Animation_fcnhn")
 }
 
 [node name="MageDrop" type="Area2D"]
@@ -152,7 +152,7 @@ shape = SubResource("RectangleShape2D_wqg2n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_nl4wr")
+&"": SubResource("AnimationLibrary_nl4wr")
 }
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

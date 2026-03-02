@@ -14,7 +14,9 @@ var can_attack: bool = true
 var aura_colour: String
 var ability_used: bool = false
 
+@rpc("any_peer", "call_local", "reliable")
 func attack(source_player: Player): pass
+@rpc("any_peer", "call_local", "reliable")
 func ability(source_player: Player): pass
 
 func set_attack_state(state: bool): #if attacked, start cooldown timer. 
@@ -24,7 +26,8 @@ func set_attack_state(state: bool): #if attacked, start cooldown timer.
 	
 		
 func attack_anim(source_player: Player):
-	source_player.anim["parameters/playback"].travel("AttackBlend")
+	source_player.anim["parameters/playback"].start("AttackBlend")
+	print(source_player.anim["parameters/playback"].get_current_node())
 	source_player.anim["parameters/AttackBlend/blend_position"] = Vector2(1, 0).rotated(pivot.rotation)
 
 func flip_sprite(source_player: Player):

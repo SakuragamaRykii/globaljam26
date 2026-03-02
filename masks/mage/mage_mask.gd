@@ -8,6 +8,7 @@ func _ready() -> void:
 	player_controller = DefaultController.new(player_stats.speed, player_stats.jump_velocity)
 	aura_colour = "5951C9"
 
+@rpc("any_peer", "call_local", "reliable")
 func attack(source_player: Player): 
 	if can_attack and Input.is_action_just_pressed("p1_attack"):
 		var bullet: Projectile = mage_bullet.instantiate()
@@ -20,7 +21,8 @@ func attack(source_player: Player):
 		get_parent().get_parent().add_child(bullet)
 		can_attack = false
 		attack_cd.start()
-	
+
+@rpc("any_peer", "call_local", "reliable")
 func ability(source_player: Player): 
 	if Input.is_action_just_pressed("p1_ability") and !ability_used:
 		$AudioStreamPlayer.play()

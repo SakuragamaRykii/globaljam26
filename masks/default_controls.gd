@@ -11,11 +11,14 @@ var attacking_source: Player
 func _ready() -> void:
 	player_controller = DefaultController.new(player_stats.speed, player_stats.jump_velocity)
 
+@rpc("any_peer", "call_local", "reliable")
 func attack(source_player : Player): 
 	if Input.is_action_just_pressed("p1_attack") and can_attack:
 		attacking = true
 		attacking_source = source_player
-		source_player.velocity += Vector2(DASH_SPEED, 0).rotated(pivot.rotation)
+		var movement_vector = Vector2(DASH_SPEED, 0).rotated(pivot.rotation)
+		if movement_vector.x *source_player.velocity.x < 0: source_player.velocity.x = 0
+		source_player.velocity += movement_vector
 		attack_anim(source_player)
 		attack_duration.start()
 # add knockback
@@ -41,7 +44,7 @@ func check_hits(source_player : Player):
 #man i wish i could spend this much time a day on my game
 
 
-		
+@rpc("any_peer", "call_local", "reliable")
 func ability(source_player : Player): 
 	if Input.is_action_just_pressed("p1_ability"):
 		print("Ability is cast??")
