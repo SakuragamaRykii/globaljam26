@@ -91,7 +91,7 @@ func check_win():
 	
 func round_finish():
 	if !alive_players: return
-	var player = alive_players[0]
+	#var player = alive_players[0]
 	$SceneUI/RoundFinish/Label.text = ROUND_FINISH_TEXT[randi_range(0, ROUND_FINISH_TEXT.size()-1)]
 	$SceneUI/RoundFinish.visible = true
 	var tw = create_tween()
@@ -100,9 +100,16 @@ func round_finish():
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
-		pause_menu.visible = !pause_menu.visible
-		if pause_menu.visible : pause_game()
-		else: resume_game()
+		toggle_pause.rpc()
+
+func request_pause():
+	pass
+	
+@rpc("any_peer", "call_local", "reliable")
+func toggle_pause():
+	pause_menu.visible = !pause_menu.visible
+	if pause_menu.visible : pause_game()
+	else: resume_game()
 
 func pause_game():
 	paused = true
@@ -196,8 +203,7 @@ func _on_legal_area_body_exited(body: Node2D) -> void:
 		body.die()
 
 func _on_resume_pressed() -> void:
-	pause_menu.visible = false
-	resume_game()
+	toggle_pause().rpc()
 	
 func _on_quit_pressed() -> void:
 	get_tree().quit()

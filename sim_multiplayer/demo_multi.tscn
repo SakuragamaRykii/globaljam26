@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://csb5ckqd5yuxp"]
+[gd_scene load_steps=15 format=3 uid="uid://csb5ckqd5yuxp"]
 
 [ext_resource type="Script" uid="uid://bfc7nocdy7ku5" path="res://sim_multiplayer/demo_multi.gd" id="1_5c87v"]
 [ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="3_libvl"]
@@ -127,6 +127,11 @@ _data = {
 &"round_finish": SubResource("Animation_25uo2")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_x4eii"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="BattleScene" type="Node2D"]
 position = Vector2(0, -3)
 script = ExtResource("1_5c87v")
@@ -149,6 +154,10 @@ collision_mask = 4
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="LegalArea"]
 position = Vector2(638, 365)
 shape = SubResource("RectangleShape2D_pd3po")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://bay86gclqwu4n")
+spawn_path = NodePath("..")
 
 [node name="SceneUI" type="CanvasLayer" parent="."]
 
@@ -272,10 +281,6 @@ offset_right = 244.0
 offset_bottom = 119.0
 text = "HOST"
 
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SceneUI"]
-_spawnable_scenes = PackedStringArray("uid://bay86gclqwu4n")
-spawn_path = NodePath("../..")
-
 [node name="Join" type="Button" parent="SceneUI"]
 offset_left = 110.0
 offset_top = 143.0
@@ -304,6 +309,9 @@ volume_db = -80.0
 libraries = {
 &"": SubResource("AnimationLibrary_qxski")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_x4eii")
 
 [connection signal="body_exited" from="LegalArea" to="." method="_on_legal_area_body_exited"]
 [connection signal="pressed" from="SceneUI/PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
