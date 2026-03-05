@@ -26,7 +26,8 @@ func set_attack_state(state: bool): #if attacked, start cooldown timer.
 	
 		
 func attack_anim(source_player: Player):
-	source_player.anim["parameters/playback"].start("AttackBlend")
+	if !source_player.is_multiplayer_authority(): return
+	source_player.current_anim_state = source_player.anim_states.ATTACK
 	print(source_player.anim["parameters/playback"].get_current_node())
 	source_player.anim["parameters/AttackBlend/blend_position"] = Vector2(1, 0).rotated(pivot.rotation)
 

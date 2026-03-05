@@ -56,8 +56,9 @@ func set_current_mask(new_mask : Mask):
 	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
-	manage_movement_anims()
 	if !is_multiplayer_authority(): return
+	manage_movement_anims()
+	set_anim_state()
 	if !dead:
 		current_mask.player_controller.movement(self, delta)
 		set_aim()
@@ -66,22 +67,45 @@ func _physics_process(delta: float) -> void:
 		current_mask.flip_sprite(self)
 		if velocity.x != 0: $Sprite.flip_h = velocity.x > 0
 	else: 
+		current_anim_state = anim_states.DEATH
 		if is_on_floor(): #out of map death can be dealt with another object
 			die()
 		else:
 			velocity += get_gravity() * delta
 	
 	move_and_slide()
-	
-func manage_movement_anims():
-	if velocity.x and !velocity.y:
-		anim["parameters/playback"].travel("move")
+
+enum anim_states {
+	IDLE,
+	MOVE,
+	AIRBORNE,
+	ATTACK,
+	DEATH
+}
+var current_anim_state: anim_states
+
+func set_anim_state():
+	if abs(velocity.y) > 0.05:
+		current_anim_state = anim_states.AIRBORNE
+	elif abs(velocity.x) > 0.05:
+		current_anim_state = anim_states.MOVE
 	else:
-		anim["parameters/playback"].travel("idle")
-	if abs(velocity.y) > 0.005:
-		anim["parameters/playback"].travel("jump")
-		
+		current_anim_state = anim_states.IDLE
 	
+
+func manage_movement_anims():
+	match current_anim_state:
+		anim_states.IDLE:
+			anim["parameters/playback"].travel("idle")
+		anim_states.AIRBORNE:
+			anim["parameters/playback"].travel("jump")
+		anim_states.MOVE:
+			anim["parameters/playback"].travel("move")
+		anim_states.ATTACK:
+			anim["parameters/playback"].start("AttackBlend")
+		anim_states.DEATH:
+			anim["parameters/playback"].start("death")
+
 func _process(delta: float) -> void:
 	$BlockBar.value = block_zone.blocking_stamina_count + block_zone.block_charge
 	$BlockZone/CollisionShape2D.disabled = !Input.is_action_pressed("p1_block")
@@ -119,7 +143,6 @@ func take_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(player_id, " has died")
-	anim["parameters/playback"].travel("death")
 	death.emit(self)
 	
 

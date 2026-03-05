@@ -8,7 +8,6 @@ func movement(target_player: Player, delta: float):
 		target_player.velocity += target_player.get_gravity() * delta
 
 	var direction_x := Input.get_axis("p1_left", "p1_right")
-	
 	if direction_x:
 		if abs(target_player.velocity.x) >= speed:
 			if target_player.velocity.x > 0:
