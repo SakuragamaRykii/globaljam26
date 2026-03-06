@@ -65,8 +65,9 @@ func set_current_mask(new_mask : Mask):
 	print("new hp : ", current_hp)
 
 func _physics_process(delta: float) -> void:
-	if !is_multiplayer_authority(): return
 	manage_movement_anims()
+	if !is_multiplayer_authority(): return
+	
 	set_anim_state()
 	if !dead:
 		current_mask.player_controller.movement(self, delta)

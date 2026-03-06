@@ -92,8 +92,8 @@ func check_win():
 func round_finish():
 	if !alive_players: return
 	var player = alive_players[0]
-	var id_num = int(player.player_id[1]) - 1
-	$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
+#	var id_num = int(player.player_id[1]) - 1
+#	$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
 	$SceneUI/RoundFinish/Label.text = ROUND_FINISH_TEXT[randi_range(0, ROUND_FINISH_TEXT.size()-1)]
 	$SceneUI/RoundFinish.visible = true
 	var tw = create_tween()
