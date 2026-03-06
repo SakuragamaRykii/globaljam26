@@ -122,8 +122,8 @@ func set_aim():
 	
 @rpc("any_peer", "call_local", "reliable")
 func handle_damage(amount : int, knockback: Vector2):
+	print(name, " is taking damage")
 	if !is_multiplayer_authority(): return
-	
 	if Input.is_action_pressed("p1_block"):
 		var blocking = block_zone.is_blocking_melee()
 		if !blocking: 
@@ -154,6 +154,7 @@ func respawn():
 	set_physics_process(true)
 	velocity = Vector2.ZERO
 	block_zone.reset()
+	current_anim_state = anim_states.IDLE
 	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false

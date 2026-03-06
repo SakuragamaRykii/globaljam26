@@ -20,7 +20,7 @@ var lobby_id : int
 var peer : SteamMultiplayerPeer
 var is_host : bool = false
 var is_joining : bool = false
-var players_in_lobby : int = 0
+var players_in_lobby : Array[Player] = []
 
 ## --------------Other metadata-------------------
 
@@ -29,7 +29,7 @@ var drop_spawn_times : Array[float] = [5., 3., 12]
 
 var alive_players : Array[Player] = []
 
-var round_finished : bool = false
+var round_finished : bool = true
 
 var paused: bool = false
 signal unpause
@@ -59,16 +59,15 @@ func _ready() -> void:
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
+	
 	if paused: await unpause
-		
+	round_finished = false
 	for player in alive_players:
 		player.respawn()
-	
 	drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
-func reset():
-	print("next round")
+
 
 @rpc("any_peer", "call_local", "reliable")
 func eliminate(player: Player):
@@ -88,6 +87,17 @@ func check_win():
 	await get_tree().create_timer(0.05).timeout
 	
 	reset()
+
+func reset():
+	for player in players_in_lobby: player.set_physics_process(false)
+
+	anim.play("round_countdown")
+	#chinese mistake
+	await anim.animation_finished
+	if paused: await unpause
+	round_finished = false
+	for player in alive_players: player.respawn()
+	drop_spawn_cooldown.start()
 	
 func round_finish():
 	if !alive_players: return
@@ -186,13 +196,16 @@ func _add_player(id : int = 1):
 	var player = player_scene.instantiate()
 	player.name = str(id)
 	player.death.connect(eliminate.rpc)
-	players_in_lobby += 1
+	players_in_lobby.append(player)
+	alive_players.append(player)
 	call_deferred("add_child", player)
 
 func _remove_player(id : int):
 	if !has_node(str(id)): return
-	players_in_lobby -= 1
-	get_node(str(id)).queue_free()
+	var quitting_player = get_node(str(id))
+	players_in_lobby.erase(quitting_player)
+	eliminate(quitting_player)
+	quitting_player.queue_free()
 	
 
 
