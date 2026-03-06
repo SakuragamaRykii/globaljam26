@@ -70,8 +70,9 @@ func _ready() -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func eliminate(player: Player):
+func eliminate(player_id: int):
 	if round_finished: return
+	var player = get_node(str(player_id))
 	print("alive players size on elim: ", alive_players.size())
 	print("alive players: ", alive_players)
 	print("called eliminate")
@@ -208,7 +209,7 @@ func _remove_player(id : int):
 	if !has_node(str(id)): return
 	var quitting_player = get_node(str(id))
 	players_in_lobby.erase(quitting_player)
-	eliminate(quitting_player)
+	eliminate(id)
 	quitting_player.queue_free()
 	
 func reset_player_position(player):
@@ -222,6 +223,7 @@ func _on_legal_area_body_exited(body: Node2D) -> void:
 	if body is Player and !pause_menu.visible:
 		print("off map")
 		body.get_node("FallSFX").play()
+		body.current_anim_state = body.anim_states.DEATH
 		body.die()
 
 func _on_resume_pressed() -> void:

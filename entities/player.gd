@@ -146,7 +146,7 @@ func take_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(player_id, " has died")
-	death.emit(self)
+	death.emit(int(name))
 	
 
 func respawn():
