@@ -7,6 +7,15 @@ var DEFAULT_CONTROLS : Mask
 @onready var avatar: Sprite2D = $Sprite
 @onready var anim: AnimationTree = $AnimationTree
 
+enum anim_states {
+	IDLE,
+	MOVE,
+	AIRBORNE,
+	ATTACK,
+	DEATH
+}
+@export var current_anim_state: anim_states
+
 @export var player_id : String #need function to set this automatically for multiplayer
 var avatar_name: String
 var player_name: String = "PLACEHOLDER"
@@ -75,14 +84,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-enum anim_states {
-	IDLE,
-	MOVE,
-	AIRBORNE,
-	ATTACK,
-	DEATH
-}
-var current_anim_state: anim_states
+
 
 func set_anim_state():
 	if abs(velocity.y) > 0.05:
