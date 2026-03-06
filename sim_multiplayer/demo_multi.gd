@@ -72,6 +72,8 @@ func _ready() -> void:
 @rpc("any_peer", "call_local", "reliable")
 func eliminate(player: Player):
 	if round_finished: return
+	print("alive players size on elim: ", alive_players.size())
+	print("alive players: ", alive_players)
 	print("called eliminate")
 	alive_players.erase(player)	
 	check_win()

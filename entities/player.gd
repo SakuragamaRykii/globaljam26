@@ -41,7 +41,7 @@ func _ready() -> void:
 	GameManager.players_in_game += 1
 	var battle_scene = get_parent()
 	death.connect(battle_scene.eliminate)
-	battle_scene.alive_players.append(self)
+	#battle_scene.alive_players.append(self)
 	$PlayerName.text = player_name
 
 func set_current_mask(new_mask : Mask):
