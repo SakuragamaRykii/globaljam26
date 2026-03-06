@@ -39,8 +39,8 @@ func _ready() -> void:
 	player_name = GameManager.player_names[GameManager.players_in_game]
 	avatar_name = GameManager.player_selected_avatars[GameManager.players_in_game]
 	GameManager.players_in_game += 1
-	var battle_scene = get_parent()
-	death.connect(battle_scene.eliminate)
+	#var battle_scene = get_parent()
+	#death.connect(battle_scene.eliminate)
 	#battle_scene.alive_players.append(self)
 	$PlayerName.text = player_name
 
@@ -145,7 +145,9 @@ func take_damage(amount : int, knockback: Vector2):
 	$TakeDamageSFX.play()
 
 func die():
-	print(player_id, " has died")
+	print(name, " has died")
+	set_process(false)
+	set_physics_process(false)
 	death.emit(int(name))
 	
 
