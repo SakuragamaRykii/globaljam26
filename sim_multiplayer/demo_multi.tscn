@@ -135,6 +135,8 @@ properties/0/replication_mode = 1
 [node name="BattleScene" type="Node2D"]
 position = Vector2(0, -3)
 script = ExtResource("1_5c87v")
+arena_start_pos = Vector2(225, 443)
+arena_end_pos = Vector2(1045, 443)
 drops_available = Array[PackedScene]([ExtResource("6_tbjad")])
 player_scene = ExtResource("8_jcfix")
 

@@ -85,12 +85,12 @@ func check_win():
 	await get_tree().create_timer(0.2).timeout
 	Engine.time_scale = 1.0
 	await get_tree().create_timer(0.05).timeout
-	
 	reset()
 
 func reset():
-	for player in players_in_lobby: player.set_physics_process(false)
-
+	for player in players_in_lobby: 
+		if player.dead: alive_players.append(player)
+		player.set_physics_process(false)
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
@@ -101,6 +101,7 @@ func reset():
 	
 func round_finish():
 	if !alive_players: return
+	print("Round finish called")
 	var player = alive_players[0]
 #	var id_num = int(player.player_id[1]) - 1
 #	$SceneUI/RoundFinish/Label.self_modulate = GameManager.PLAYER_COLOUR_CODES[id_num]
@@ -197,6 +198,7 @@ func _add_player(id : int = 1):
 	player.name = str(id)
 	player.death.connect(eliminate.rpc)
 	players_in_lobby.append(player)
+	reset_player_position(player)
 	alive_players.append(player)
 	call_deferred("add_child", player)
 
@@ -207,7 +209,9 @@ func _remove_player(id : int):
 	eliminate(quitting_player)
 	quitting_player.queue_free()
 	
-
+func reset_player_position(player):
+	var distance = arena_end_pos - arena_start_pos/players_in_lobby.size()
+	player.position = arena_end_pos - distance
 
 """----------------------------------"""
 
@@ -219,7 +223,7 @@ func _on_legal_area_body_exited(body: Node2D) -> void:
 		body.die()
 
 func _on_resume_pressed() -> void:
-	toggle_pause().rpc()
+	toggle_pause.rpc()
 	
 func _on_quit_pressed() -> void:
 	get_tree().quit()
