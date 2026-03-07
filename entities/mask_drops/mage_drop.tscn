@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d6xidbfeihie"]
+[gd_scene load_steps=11 format=3 uid="uid://d6xidbfeihie"]
 
 [ext_resource type="Script" uid="uid://bw7p8mgytrsbk" path="res://entities/mask_drops/mask_drop.gd" id="1_s0mhp"]
 [ext_resource type="PackedScene" uid="uid://bjlyc75d18x4y" path="res://masks/mage/mage_mask.tscn" id="2_p3n8d"]
@@ -121,6 +121,11 @@ _data = {
 &"spawn": SubResource("Animation_fcnhn")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_1ev2k"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="MageDrop" type="Area2D"]
 collision_mask = 4
 script = ExtResource("1_s0mhp")
@@ -154,5 +159,8 @@ shape = SubResource("RectangleShape2D_wqg2n")
 libraries = {
 &"": SubResource("AnimationLibrary_nl4wr")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_1ev2k")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

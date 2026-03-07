@@ -80,8 +80,8 @@ func eliminate(player_id: int):
 	check_win()
 
 func check_win():
-	print("called check win")
 	if alive_players.size() != 1: return
+	print("CHECK WIN")
 	round_finished = true
 	round_finish()
 	Engine.time_scale = 0.1
@@ -93,6 +93,7 @@ func check_win():
 func reset():
 	for player in players_in_lobby: 
 		if player.dead: alive_players.append(player)
+		reset_player_position(player)
 		player.set_physics_process(false)
 	anim.play("round_countdown")
 	#chinese mistake

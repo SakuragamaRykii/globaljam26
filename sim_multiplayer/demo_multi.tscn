@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://csb5ckqd5yuxp"]
+[gd_scene load_steps=16 format=3 uid="uid://csb5ckqd5yuxp"]
 
 [ext_resource type="Script" uid="uid://bfc7nocdy7ku5" path="res://sim_multiplayer/demo_multi.gd" id="1_5c87v"]
+[ext_resource type="PackedScene" uid="uid://d6xidbfeihie" path="res://entities/mask_drops/mage_drop.tscn" id="2_746n4"]
 [ext_resource type="Texture2D" uid="uid://vwj0bkwoh1jm" path="res://entities/sprites/gamejam/combat/background.png" id="3_libvl"]
 [ext_resource type="PackedScene" uid="uid://4h55pq8j8f51" path="res://maps/platform_temp.tscn" id="4_7k7ec"]
 [ext_resource type="FontFile" uid="uid://blhhom403pdqr" path="res://fonts/Born2bSportyFS.otf" id="5_v3gxy"]
@@ -161,7 +162,7 @@ position = Vector2(0, -3)
 script = ExtResource("1_5c87v")
 arena_start_pos = Vector2(225, 443)
 arena_end_pos = Vector2(1045, 443)
-drops_available = Array[PackedScene]([ExtResource("6_tbjad")])
+drops_available = Array[PackedScene]([ExtResource("2_746n4")])
 player_scene = ExtResource("8_jcfix")
 
 [node name="TempBackground" type="Sprite2D" parent="."]

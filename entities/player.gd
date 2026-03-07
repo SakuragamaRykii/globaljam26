@@ -157,6 +157,7 @@ func respawn():
 	velocity = Vector2.ZERO
 	block_zone.reset()
 	current_anim_state = anim_states.IDLE
+	
 	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false
