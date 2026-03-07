@@ -105,6 +105,7 @@ func reset():
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
+	print("ROUND START")
 	if paused: await unpause
 	round_finished = false
 	for player in alive_players: player.respawn()
@@ -232,6 +233,7 @@ func reset_player_position(player):
 	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
 	var newpos = arena_end_pos - Vector2(distance_x, 0)
 	if multiplayer.is_server():
+		print("resetting position...")
 		apply_position_reset.rpc(player.name, newpos)
 	
 @rpc("call_local", "reliable")
@@ -239,6 +241,7 @@ func apply_position_reset(player_id: String, newpos: Vector2):
 	var target_player = get_node_or_null(player_id)
 	assert(target_player, "no player with such id")
 	target_player.global_position = newpos
+	print("new position: ", str(target_player.global_position))
 
 """----------------------------------"""
 
