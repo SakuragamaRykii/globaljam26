@@ -198,6 +198,7 @@ func on_lobby_joined(lid: int, perms: int, locked : bool, response: int):
 	is_joining = false
 	
 func _add_player(id : int = 1):
+	print("Player added: ", str(id))
 	var player = player_scene.instantiate()
 	player.name = str(id)
 	player.death.connect(eliminate.rpc)
@@ -211,6 +212,7 @@ func _remove_player(id : int):
 	var quitting_player = get_node(str(id))
 	players_in_lobby.erase(quitting_player)
 	eliminate(id)
+	GameManager.players_in_game -= 1 #this value is incremented in the player base script
 	quitting_player.queue_free()
 	
 func reset_player_position(player):
