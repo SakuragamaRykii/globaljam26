@@ -64,7 +64,7 @@ func _ready() -> void:
 	round_finished = false
 	for player in alive_players:
 		player.respawn()
-	if is_host:
+	if multiplayer.is_server():
 		drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
@@ -72,6 +72,7 @@ func _ready() -> void:
 
 
 func eliminate(player_id: String):
+	print("called eliminate")
 	handle_elim.rpc(player_id)
 
 @rpc("any_peer", "call_local", "reliable")
@@ -82,7 +83,6 @@ func handle_elim(player_id: String):
 	assert(player, "player to eliminate not found?")
 	print("alive players size on elim: ", alive_players.size())
 	print("alive players: ", alive_players)
-	print("called eliminate")
 	alive_players.erase(player)	
 	check_win()
 
@@ -108,8 +108,10 @@ func reset():
 	if paused: await unpause
 	round_finished = false
 	for player in alive_players: player.respawn()
-	drop_spawn_cooldown.start()
-	
+	if multiplayer.is_server():
+		drop_spawn_cooldown.start()	
+		
+
 func round_finish():
 	if !alive_players: return
 	print("Round finish called")
