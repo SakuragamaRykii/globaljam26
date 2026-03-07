@@ -152,8 +152,8 @@ func request_disable_physics(player_id: String):
 	if not multiplayer.is_server():
 		return
 	disable_physics.rpc(player_id)
-
-@rpc("call_local", "reliable")
+		
+@rpc("any_peer", "call_local", "reliable")
 func disable_physics(player_id: String):
 	if not has_node(player_id):
 		return
