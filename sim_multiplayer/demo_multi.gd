@@ -101,7 +101,7 @@ func reset():
 	for player in players_in_lobby: 
 		if player.dead: alive_players.append(player)
 		reset_player_position(player)
-		player.set_physics_process(false)
+		#player.
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
@@ -229,8 +229,8 @@ func _remove_player(id : int):
 
 
 func reset_player_position(player):
-	var distance = arena_end_pos - arena_start_pos/players_in_lobby.size()
-	var newpos = arena_end_pos - distance
+	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
+	var newpos = arena_end_pos - Vector2(distance_x, 0)
 	if multiplayer.is_server():
 		apply_position_reset.rpc(player.name, newpos)
 	
