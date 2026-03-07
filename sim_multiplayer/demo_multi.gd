@@ -64,8 +64,8 @@ func _ready() -> void:
 	round_finished = false
 	for player in alive_players:
 		player.respawn()
-	if multiplayer.is_server():
-		drop_spawn_cooldown.start()
+	#if multiplayer.is_server():
+		#drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
 
@@ -108,8 +108,8 @@ func reset():
 	if paused: await unpause
 	round_finished = false
 	for player in alive_players: player.respawn()
-	if multiplayer.is_server():
-		drop_spawn_cooldown.start()	
+	#if multiplayer.is_server():
+		#drop_spawn_cooldown.start()	
 		
 
 func round_finish():
