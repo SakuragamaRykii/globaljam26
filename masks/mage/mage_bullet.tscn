@@ -1,9 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://beonpc82sfstm"]
+[gd_scene load_steps=5 format=3 uid="uid://beonpc82sfstm"]
 
 [ext_resource type="Texture2D" uid="uid://dqjdnseyimhsh" path="res://masks/mage/enemy_bullet-Sheet.png" id="1_amog4"]
-[ext_resource type="Script" path="res://masks/projectiles.gd" id="1_rw5dg"]
+[ext_resource type="Script" uid="uid://qkni0m7atn4f" path="res://masks/projectiles.gd" id="1_rw5dg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gj7ro"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_obl5n"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [node name="MageBullet" type="CharacterBody2D"]
 collision_layer = 16
@@ -22,3 +27,6 @@ shape = SubResource("RectangleShape2D_gj7ro")
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="Lifespan" type="Timer" parent="."]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_obl5n")

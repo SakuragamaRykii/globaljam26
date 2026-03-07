@@ -64,15 +64,22 @@ func _ready() -> void:
 	round_finished = false
 	for player in alive_players:
 		player.respawn()
-	drop_spawn_cooldown.start()
+	if is_host:
+		drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
 
 
+
+func eliminate(player_id: String):
+	handle_elim.rpc(player_id)
+
 @rpc("any_peer", "call_local", "reliable")
-func eliminate(player_id: int):
+func handle_elim(player_id: String):
+	if not multiplayer.is_server():return
 	if round_finished: return
-	var player = get_node(str(player_id))
+	var player = get_node_or_null(player_id)
+	assert(player, "player to eliminate not found?")
 	print("alive players size on elim: ", alive_players.size())
 	print("alive players: ", alive_players)
 	print("called eliminate")
@@ -153,7 +160,7 @@ func random_drop():
 	var random_drop_index : int = randi_range(0, drops_available.size()-1)
 	
 	var instance = drops_available[random_drop_index].instantiate()
-	add_child(instance)
+	self.add_child(instance)
 	instance.global_position = Vector2(random_x, DROP_SPAWN_Y_POS)
 	
 	
@@ -201,23 +208,35 @@ func _add_player(id : int = 1):
 	print("Player added: ", str(id))
 	var player = player_scene.instantiate()
 	player.name = str(id)
-	player.death.connect(eliminate.rpc)
 	players_in_lobby.append(player)
-	reset_player_position(player)
 	alive_players.append(player)
-	call_deferred("add_child", player)
+	add_child(player)
+	reset_player_position(player)
+	
+
 
 func _remove_player(id : int):
-	if !has_node(str(id)): return
-	var quitting_player = get_node(str(id))
+	var strid = str(id)
+	if !has_node(strid): return
+	var quitting_player = get_node_or_null(strid)
 	players_in_lobby.erase(quitting_player)
-	eliminate(id)
+	eliminate(strid)
 	GameManager.players_in_game -= 1 #this value is incremented in the player base script
 	quitting_player.queue_free()
 	
+
+
 func reset_player_position(player):
 	var distance = arena_end_pos - arena_start_pos/players_in_lobby.size()
-	player.position = arena_end_pos - distance
+	var newpos = arena_end_pos - distance
+	if multiplayer.is_server():
+		apply_position_reset.rpc(player.name, newpos)
+	
+@rpc("call_local", "reliable")
+func apply_position_reset(player_id: String, newpos: Vector2):
+	var target_player = get_node_or_null(player_id)
+	assert(target_player, "no player with such id")
+	target_player.global_position = newpos
 
 """----------------------------------"""
 
@@ -237,6 +256,7 @@ func _on_quit_pressed() -> void:
 
 
 func _on_drop_spawn_cd_timeout() -> void:
+	if !is_host: return
 	random_drop()
 	if drop_spawn_index < 2:
 		drop_spawn_index += 1

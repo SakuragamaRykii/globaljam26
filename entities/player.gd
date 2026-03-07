@@ -6,6 +6,7 @@ var DEFAULT_CONTROLS : Mask
 @onready var aura : AnimatedSprite2D = $Aura
 @onready var avatar: Sprite2D = $Sprite
 @onready var anim: AnimationTree = $AnimationTree
+@onready var battle_scene: = get_parent()
 
 enum anim_states {
 	IDLE,
@@ -26,8 +27,6 @@ var current_hp: int
 var dead : bool = false
 signal death
 
-@onready var root = get_tree().root.get_child(1)
-
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -39,10 +38,8 @@ func _ready() -> void:
 	player_name = GameManager.player_names[GameManager.players_in_game]
 	avatar_name = GameManager.player_selected_avatars[GameManager.players_in_game]
 	GameManager.players_in_game += 1
-	#var battle_scene = get_parent()
-	#death.connect(battle_scene.eliminate)
-	#battle_scene.alive_players.append(self)
 	$PlayerName.text = player_name
+	death.connect(battle_scene.eliminate)
 
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
@@ -51,7 +48,7 @@ func set_current_mask(new_mask : Mask):
 	if current_mask:
 		hp_ratio = float(current_hp)/float(current_mask.player_stats.max_hp)
 		remove_child(current_mask)
-		root.call_deferred("add_child", current_mask)
+		battle_scene.call_deferred("add_child", current_mask)
 	current_mask = new_mask
 	
 	current_mask.reparent(self)
@@ -146,11 +143,24 @@ func take_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(name, " has died")
-	set_process(false)
-	set_physics_process(false)
-	death.emit(int(name))
-	
+	death.emit(name)
+	request_disable_physics.rpc_id(1, name)
+	#request_elimination.rpc_id(1, int(name))
 
+@rpc("any_peer", "call_local", "reliable")
+func request_disable_physics(player_id: String):
+	if not multiplayer.is_server():
+		return
+	disable_physics.rpc(player_id)
+
+@rpc("call_local", "reliable")
+func disable_physics(player_id: String):
+	if not has_node(player_id):
+		return
+	var player = get_node(player_id)
+	player.set_process(false)
+	player.set_physics_process(false)
+	
 func respawn():
 	set_process(true)
 	set_physics_process(true)
