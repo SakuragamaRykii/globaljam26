@@ -57,6 +57,7 @@ func _ready() -> void:
 	#var names_size = GameManager.player_names.size()
 	await Steam.lobby_created
 	anim.play("round_countdown")
+	
 	#chinese mistake
 	await anim.animation_finished
 	
@@ -95,23 +96,33 @@ func check_win():
 	await get_tree().create_timer(0.2).timeout
 	Engine.time_scale = 1.0
 	await get_tree().create_timer(0.05).timeout
-	reset()
+	reset.rpc()
 
+@rpc("any_peer", "call_local", "reliable")
 func reset():
+	print("reset called")
 	for player in players_in_lobby: 
 		if player.dead: alive_players.append(player)
+		player.current_anim_state = player.anim_states.IDLE
+		player.manage_movement_anims()
 		reset_player_position(player)
-		#player.
+		disable_player(player)
 	anim.play("round_countdown")
 	#chinese mistake
 	await anim.animation_finished
 	print("ROUND START")
 	if paused: await unpause
 	round_finished = false
-	for player in alive_players: player.respawn()
+	for player in alive_players: 
+		player.respawn()
+		print("Player settings reset")
+		
 	#if multiplayer.is_server():
 		#drop_spawn_cooldown.start()	
-		
+
+func disable_player(player: Player):
+	player.set_process(false)
+	player.set_physics_process(false)
 
 func round_finish():
 	if !alive_players: return
@@ -154,9 +165,7 @@ func resume_game():
 			pausable.set_physics_process(true)
 	unpause.emit()
 	
-
 func quit_game():print("quit")
-
 
 func random_drop():
 	var random_x : float = randf_range(arena_start_pos.x, arena_end_pos.x)
@@ -213,6 +222,7 @@ func _add_player(id : int = 1):
 	player.name = str(id)
 	players_in_lobby.append(player)
 	alive_players.append(player)
+	alive_players.append(player)
 	add_child(player)
 	reset_player_position(player)
 	
@@ -227,8 +237,6 @@ func _remove_player(id : int):
 	GameManager.players_in_game -= 1 #this value is incremented in the player base script
 	quitting_player.queue_free()
 	
-
-
 func reset_player_position(player):
 	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
 	var newpos = arena_end_pos - Vector2(distance_x, 0)

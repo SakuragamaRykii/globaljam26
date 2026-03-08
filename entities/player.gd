@@ -40,6 +40,7 @@ func _ready() -> void:
 	GameManager.players_in_game += 1
 	$PlayerName.text = player_name
 	death.connect(battle_scene.eliminate)
+	disable_physics.rpc(name)
 
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return
@@ -144,34 +145,26 @@ func take_damage(amount : int, knockback: Vector2):
 func die():
 	print(name, " has died")
 	death.emit(name)
-	request_disable_physics.rpc_id(1, name)
+	disable_physics.rpc(name)
 	#request_elimination.rpc_id(1, int(name))
-
-@rpc("any_peer", "call_local", "reliable")
-func request_disable_physics(player_id: String):
-	if not multiplayer.is_server():
-		return
-	disable_physics.rpc(player_id)
 		
 @rpc("any_peer", "call_local", "reliable")
-func disable_physics(player_id: String):
-	if not has_node(player_id):
-		return
-	var player = get_node(player_id)
-	player.set_process(false)
-	player.set_physics_process(false)
+func disable_physics(id: String):
+	if name != id : return
+	set_process(false)
+	set_physics_process(false)
 	
 func respawn():
+	print("Respawn Called")
 	set_process(true)
 	set_physics_process(true)
 	velocity = Vector2.ZERO
 	block_zone.reset()
-	current_anim_state = anim_states.IDLE
+	#current_anim_state = anim_states.IDLE
 	
 	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	dead = false
-
 
 ''' ANIM FUNCTIONS'''
 const PLAYER_AVATAR_PATH : String = "entities/sprite_sheets/player_avatars/"
