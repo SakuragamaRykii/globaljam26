@@ -72,7 +72,7 @@ func _ready() -> void:
 
 func start_round():
 	if !multiplayer.is_server(): return
-	anim.play("start_round")
+	anim.play("round_countdown")
 
 	await anim.animation_finished
 	if paused: await unpause
