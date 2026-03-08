@@ -78,6 +78,7 @@ func start_round():
 	if paused: await unpause
 	round_finished = false
 	for player in alive_players:
+		print("start player: ", player.name)
 		player.respawn()	
 
 func eliminate(player_id: String):
@@ -248,7 +249,9 @@ func _add_player(id : int = 1):
 	players_in_lobby.append(player)
 	alive_players.append(player)
 	#alive_players.append(player)
-	add_child(player)
+	call_deferred("add_child", player)
+	await get_tree().process_frame
+	
 	reset_player_position(player)
 	if multiplayer.is_server():
 		reset_join_timer()
