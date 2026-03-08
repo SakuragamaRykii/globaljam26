@@ -22,6 +22,10 @@ var is_host : bool = false
 var is_joining : bool = false
 var players_in_lobby : Array[Player] = []
 
+var join_timer: Timer 
+const MAX_PLAYERS : int = 4
+const NEW_PLAYER_JOIN_TIME: float = 2.
+
 ## --------------Other metadata-------------------
 
 var drop_spawn_index : int = 0
@@ -54,23 +58,27 @@ func _ready() -> void:
 	Steam.lobby_created.connect(on_lobby_created)
 	Steam.lobby_joined.connect(on_lobby_joined)
 	
+	join_timer = Timer.new()
+	join_timer.one_shot = true
+	join_timer.timeout.connect(on_join_timer_timeout)
+	add_child(join_timer)
 	#var names_size = GameManager.player_names.size()
 	await Steam.lobby_created
-	anim.play("round_countdown")
-	
-	#chinese mistake
-	await anim.animation_finished
-	
-	if paused: await unpause
-	round_finished = false
-	for player in alive_players:
-		player.respawn()
 	#if multiplayer.is_server():
 		#drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
 
 
+func start_round():
+	if !multiplayer.is_server(): return
+	anim.play("start_round")
+
+	await anim.animation_finished
+	if paused: await unpause
+	round_finished = false
+	for player in alive_players:
+		player.respawn()	
 
 func eliminate(player_id: String):
 	print("called eliminate")
@@ -107,15 +115,7 @@ func reset():
 		player.manage_movement_anims()
 		reset_player_position(player)
 		disable_player(player)
-	anim.play("round_countdown")
-	#chinese mistake
-	await anim.animation_finished
-	print("ROUND START")
-	if paused: await unpause
-	round_finished = false
-	for player in alive_players: 
-		player.respawn()
-		print("Player settings reset")
+	start_round()
 		
 	#if multiplayer.is_server():
 		#drop_spawn_cooldown.start()	
@@ -176,6 +176,31 @@ func random_drop():
 	instance.global_position = Vector2(random_x, DROP_SPAWN_Y_POS)
 	
 	
+
+func reset_join_timer():
+	if players_in_lobby.size() <= 1: return
+	join_timer.stop()
+	if players_in_lobby.size() < MAX_PLAYERS:
+		join_timer.start(NEW_PLAYER_JOIN_TIME)
+	else:
+		print("Start round by max players")
+		start_round()
+
+func reset_player_position(player):
+	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
+	var newpos = arena_end_pos - Vector2(distance_x, 0)
+	if multiplayer.is_server():
+		print("resetting position...")
+		apply_position_reset.rpc(player.name, newpos)
+	
+@rpc("call_local", "reliable")
+func apply_position_reset(player_id: String, newpos: Vector2):
+	var target_player = get_node_or_null(player_id)
+	assert(target_player, "no player with such id")
+	target_player.global_position = newpos
+	print("new position: ", str(target_player.global_position))
+
+	
 """----------------STEAM SHIT------------------"""
 
 func host_lobby():
@@ -222,12 +247,12 @@ func _add_player(id : int = 1):
 	player.name = str(id)
 	players_in_lobby.append(player)
 	alive_players.append(player)
-	alive_players.append(player)
+	#alive_players.append(player)
 	add_child(player)
 	reset_player_position(player)
-	
-
-
+	if multiplayer.is_server():
+		reset_join_timer()
+		
 func _remove_player(id : int):
 	var strid = str(id)
 	if !has_node(strid): return
@@ -237,22 +262,14 @@ func _remove_player(id : int):
 	GameManager.players_in_game -= 1 #this value is incremented in the player base script
 	quitting_player.queue_free()
 	
-func reset_player_position(player):
-	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
-	var newpos = arena_end_pos - Vector2(distance_x, 0)
-	if multiplayer.is_server():
-		print("resetting position...")
-		apply_position_reset.rpc(player.name, newpos)
-	
-@rpc("call_local", "reliable")
-func apply_position_reset(player_id: String, newpos: Vector2):
-	var target_player = get_node_or_null(player_id)
-	assert(target_player, "no player with such id")
-	target_player.global_position = newpos
-	print("new position: ", str(target_player.global_position))
+
 
 """----------------------------------"""
 
+func on_join_timer_timeout():
+	if multiplayer.is_server():
+		print("Start round by join timer timeout")
+		start_round()
 
 func _on_legal_area_body_exited(body: Node2D) -> void:
 	if body is Player and !pause_menu.visible:
