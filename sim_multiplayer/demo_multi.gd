@@ -114,11 +114,12 @@ func check_win():
 @rpc("any_peer", "call_local", "reliable")
 func reset():
 	print("reset called")
-	for player in players_in_lobby: 
+	alive_players = players_in_lobby.duplicate()
+	for player in alive_players: 
 		reset_player_position(player)
-		if player.dead: 
-			print("player is dead but we bring it back")
-			alive_players.append(player)
+		#if player.dead: 
+			#print("player is dead but we bring it back")
+			#alive_players.append(player)
 		player.current_anim_state = player.anim_states.IDLE
 		player.manage_movement_anims()
 		disable_player(player)

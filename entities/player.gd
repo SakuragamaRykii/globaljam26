@@ -145,13 +145,14 @@ func take_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(name, " has died")
-	dead = true
+	
 	death.emit(name)
 	disable_physics.rpc(name)
 	#request_elimination.rpc_id(1, int(name))
 		
 @rpc("any_peer", "call_local", "reliable")
 func disable_physics(id: String):
+	dead = true
 	if name != id : return
 	set_process(false)
 	set_physics_process(false)
@@ -161,6 +162,7 @@ func disable_physics(id: String):
 func respawn():
 	print("Respawn Called")
 	dead = false
+	set_current_mask(DEFAULT_CONTROLS)
 	current_hp = current_mask.player_stats.max_hp
 	set_process(true)
 	set_physics_process(true)
@@ -168,7 +170,7 @@ func respawn():
 	block_zone.reset()
 	#current_anim_state = anim_states.IDLE
 	
-	set_current_mask(DEFAULT_CONTROLS)
+	
 	
 	
 ''' ANIM FUNCTIONS'''
