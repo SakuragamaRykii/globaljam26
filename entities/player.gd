@@ -40,7 +40,8 @@ func _ready() -> void:
 	GameManager.players_in_game += 1
 	$PlayerName.text = player_name
 	death.connect(battle_scene.eliminate)
-	disable_physics.rpc(name)
+
+	
 
 func set_current_mask(new_mask : Mask):
 	if new_mask == current_mask: return

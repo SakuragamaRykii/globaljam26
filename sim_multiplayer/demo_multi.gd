@@ -251,8 +251,9 @@ func _add_player(id : int = 1):
 	#alive_players.append(player)
 	#call_deferred("add_child", player)
 	add_child(player)
-	await player.ready
-
+	await get_tree().physics_frame
+	print("ready")
+	disable_player(player)
 	reset_player_position(player)
 	if multiplayer.is_server():
 		reset_join_timer()

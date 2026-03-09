@@ -331,7 +331,7 @@ wait_time = 5.0
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_kq07x")
-volume_db = -24.25
+volume_db = -60.843
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
