@@ -249,9 +249,10 @@ func _add_player(id : int = 1):
 	players_in_lobby.append(player)
 	alive_players.append(player)
 	#alive_players.append(player)
-	call_deferred("add_child", player)
-	await get_tree().process_frame
-	
+	#call_deferred("add_child", player)
+	add_child(player)
+	await player.ready
+
 	reset_player_position(player)
 	if multiplayer.is_server():
 		reset_join_timer()
