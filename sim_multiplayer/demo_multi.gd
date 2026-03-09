@@ -71,7 +71,7 @@ func _ready() -> void:
 
 
 func start_round():
-	anim.play("round_countdown")
+	round_countdown.rpc()
 	await anim.animation_finished
 	if !multiplayer.is_server(): return
 	if paused: await unpause
@@ -79,6 +79,10 @@ func start_round():
 	for player in alive_players:
 		print("start player: ", player.name)
 		player.respawn.rpc()
+
+@rpc("any_peer", "call_local", "reliable")
+func round_countdown():
+	anim.play("round_countdown")
 
 func eliminate(player_id: String):
 	print("called eliminate")
@@ -187,7 +191,7 @@ func reset_join_timer():
 		start_round()
 
 func reset_player_position(player):
-	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
+	var distance_x = arena_end_pos.x - arena_start_pos.x/alive_players.size()
 	var newpos = arena_end_pos - Vector2(arena_end_pos.x - distance_x, 0)
 	if multiplayer.is_server():
 		print("resetting position...")

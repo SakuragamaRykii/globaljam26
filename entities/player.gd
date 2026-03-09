@@ -156,7 +156,7 @@ func disable_physics(id: String):
 	set_physics_process(false)
 
 
-@rpc("call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func respawn():
 	print("Respawn Called")
 	set_process(true)
