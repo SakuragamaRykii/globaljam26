@@ -71,15 +71,14 @@ func _ready() -> void:
 
 
 func start_round():
-	if !multiplayer.is_server(): return
 	anim.play("round_countdown")
-
 	await anim.animation_finished
+	if !multiplayer.is_server(): return
 	if paused: await unpause
 	round_finished = false
 	for player in alive_players:
 		print("start player: ", player.name)
-		player.respawn()	
+		player.respawn.rpc()
 
 func eliminate(player_id: String):
 	print("called eliminate")
@@ -189,7 +188,7 @@ func reset_join_timer():
 
 func reset_player_position(player):
 	var distance_x = arena_end_pos.x - arena_start_pos.x/players_in_lobby.size()
-	var newpos = arena_end_pos - Vector2(distance_x, 0)
+	var newpos = arena_end_pos - Vector2(arena_end_pos.x - distance_x, 0)
 	if multiplayer.is_server():
 		print("resetting position...")
 		apply_position_reset.rpc(player.name, newpos)
@@ -253,7 +252,7 @@ func _add_player(id : int = 1):
 	add_child(player)
 	await get_tree().physics_frame
 	print("ready")
-	disable_player(player)
+	player.disable_physics.rpc(player.name)
 	reset_player_position(player)
 	if multiplayer.is_server():
 		reset_join_timer()

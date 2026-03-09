@@ -154,7 +154,9 @@ func disable_physics(id: String):
 	if name != id : return
 	set_process(false)
 	set_physics_process(false)
-	
+
+
+@rpc("call_local", "reliable")
 func respawn():
 	print("Respawn Called")
 	set_process(true)
