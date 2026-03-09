@@ -91,6 +91,7 @@ func eliminate(player_id: String):
 @rpc("any_peer", "call_local", "reliable")
 func handle_elim(player_id: String):
 	if not multiplayer.is_server():return
+	if alive_players.size() == 1: return
 	if round_finished: return
 	var player = get_node_or_null(player_id)
 	assert(player, "player to eliminate not found?")
@@ -114,10 +115,12 @@ func check_win():
 func reset():
 	print("reset called")
 	for player in players_in_lobby: 
-		if player.dead: alive_players.append(player)
+		reset_player_position(player)
+		if player.dead: 
+			print("player is dead but we bring it back")
+			alive_players.append(player)
 		player.current_anim_state = player.anim_states.IDLE
 		player.manage_movement_anims()
-		reset_player_position(player)
 		disable_player(player)
 	start_round()
 		
