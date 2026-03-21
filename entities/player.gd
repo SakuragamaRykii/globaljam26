@@ -145,7 +145,6 @@ func take_damage(amount : int, knockback: Vector2):
 
 func die():
 	print(name, " has died")
-	
 	death.emit(name)
 	disable_physics.rpc(name)
 	#request_elimination.rpc_id(1, int(name))

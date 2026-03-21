@@ -323,6 +323,13 @@ offset_right = 192.5625
 offset_bottom = 239.0
 placeholder_text = "LID"
 
+[node name="RESET" type="Button" parent="SceneUI"]
+offset_left = 1065.0
+offset_top = 52.0
+offset_right = 1206.0
+offset_bottom = 128.0
+text = "RESET"
+
 [node name="MageMask" parent="." instance=ExtResource("6_tbjad")]
 position = Vector2(-384, 453)
 
@@ -347,4 +354,5 @@ replication_config = SubResource("SceneReplicationConfig_x4eii")
 [connection signal="pressed" from="SceneUI/Host" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="SceneUI/Join" to="." method="_on_join_pressed"]
 [connection signal="text_changed" from="SceneUI/IDPrompt" to="." method="_on_id_prompt_text_changed"]
+[connection signal="pressed" from="SceneUI/RESET" to="." method="_on_reset_pressed"]
 [connection signal="timeout" from="DropSpawnCD" to="." method="_on_drop_spawn_cd_timeout"]

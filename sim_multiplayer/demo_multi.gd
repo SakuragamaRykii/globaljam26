@@ -122,7 +122,7 @@ func reset():
 			#alive_players.append(player)
 		player.current_anim_state = player.anim_states.IDLE
 		player.manage_movement_anims()
-		disable_player(player)
+		player.disable_physics.rpc(player.name)
 	start_round()
 		
 	#if multiplayer.is_server():
@@ -313,3 +313,7 @@ func _on_id_prompt_text_changed(new_text: String) -> void:
 
 func _on_join_pressed() -> void:
 	join_lobby($SceneUI/IDPrompt.text.to_int())
+
+
+func _on_reset_pressed() -> void:
+	reset()
