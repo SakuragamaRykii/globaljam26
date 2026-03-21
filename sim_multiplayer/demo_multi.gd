@@ -68,8 +68,6 @@ func _ready() -> void:
 		#drop_spawn_cooldown.start()
 		
 # i wonder how many yap comments im gonna have left on this project by the time im done
-
-
 func start_round():
 	round_countdown.rpc()
 	await anim.animation_finished
@@ -90,19 +88,20 @@ func eliminate(player_id: String):
 
 @rpc("any_peer", "call_local", "reliable")
 func handle_elim(player_id: String):
-	if not multiplayer.is_server():return
-	if alive_players.size() == 1: return
-	if round_finished: return
+	if not multiplayer.is_server()\
+		or alive_players.size() == 1\
+		or round_finished: return
 	var player = get_node_or_null(player_id)
 	assert(player, "player to eliminate not found?")
-	print("alive players size on elim: ", alive_players.size())
+	#print("alive players size on elim: ", alive_players.size())
 	print("alive players: ", alive_players)
 	alive_players.erase(player)	
+	print("alive players post erasure: ", alive_players)
+	if alive_players.size() != 1: return
 	check_win.rpc()
 
 @rpc("any_peer", "call_local", "reliable")
 func check_win():
-	if alive_players.size() != 1: return
 	print("CHECK WIN")
 	round_finished = true
 	round_finish()
