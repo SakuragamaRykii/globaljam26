@@ -98,8 +98,9 @@ func handle_elim(player_id: String):
 	print("alive players size on elim: ", alive_players.size())
 	print("alive players: ", alive_players)
 	alive_players.erase(player)	
-	check_win()
+	check_win.rpc()
 
+@rpc("any_peer", "call_local", "reliable")
 func check_win():
 	if alive_players.size() != 1: return
 	print("CHECK WIN")
@@ -316,4 +317,4 @@ func _on_join_pressed() -> void:
 
 
 func _on_reset_pressed() -> void:
-	reset()
+	reset.rpc()
